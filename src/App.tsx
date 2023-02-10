@@ -1,10 +1,14 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
+
 import Header from "./components/Header";
+import ImageBackground from "./components/ImageBackground";
 
 export default function App() {
   return (
     <View style={styles.container}>
-     <Header />
+      <ImageBackground />
+      <Header />
+      <StatusBar barStyle="light-content" />
     </View>
   );
 }
