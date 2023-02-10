@@ -1,12 +1,79 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+// TODO: add font family and fix web view text
+import React from "react";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+
+enum Style {
+  text1 = 1,
+  text2,
+  text3,
+}
+
+type ITextStyleIndex = { textStyleIndex: number };
+
+const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
+  const shadowStyle = {
+    [`${Style.text1}`]: styles.text1,
+    [`${Style.text2}`]: styles.text2,
+    [`${Style.text3}`]: styles.text3,
+  };
+
+  return (
+    <Text style={[styles.text, shadowStyle[textStyleIndex + 1]]}>
+      General Knowledge Trivia
+    </Text>
+  );
+};
 
 const Header: React.FC = () => {
   return (
-    <View>
-      <Text>Trivia Game</Text>
-    </View>
-  )
-}
+    <SafeAreaView>
+      <View style={styles.container}>
+        {Array(3)
+          .fill(true)
+          .map((_, i) => (
+            <TextWithShadow key={`text-${i}`} textStyleIndex={i} />
+          ))}
+      </View>
+    </SafeAreaView>
+  );
+};
 
-export default Header
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  text: {
+    fontSize: 40,
+    letterSpacing: 8,
+    textAlign: "center",
+    textTransform: "uppercase",
+    color: "white",
+    fontWeight: "600",
+    textShadowColor: "#BABABA",
+    textShadowRadius: 1,
+    left: 0,
+    right: 0,
+  },
+  text1: {
+    textShadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  text2: {
+    position: "absolute",
+    textShadowOffset: {
+      width: 0,
+      height: 4,
+    },
+  },
+  text3: {
+    position: "absolute",
+    textShadowOffset: {
+      width: 0,
+      height: 6,
+    },
+  },
+});
+
+export default Header;
