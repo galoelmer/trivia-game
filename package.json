@@ -1,7 +1,7 @@
 {
   "name": "trivia-game",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.tsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,12 +9,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.7",
     "@expo-google-fonts/baloo": "^0.0.2",
     "@expo-google-fonts/nunito": "^0.2.2",
     "@expo/webpack-config": "^18.0.1",
     "expo": "~47.0.12",
     "expo-font": "^11.0.1",
     "expo-status-bar": "~1.4.2",
+    "graphql": "^16.6.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
