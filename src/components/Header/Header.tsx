@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
     left: 0,
     right: 0,
+    paddingTop: 20,
   },
   text1: {
     textShadowOffset: {
