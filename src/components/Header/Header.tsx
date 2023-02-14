@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
   return (
     <SafeAreaView>
-      <View style={styles.container}>
+      <View>
         {Array(3)
           .fill(true)
           .map((_, i) => (
@@ -50,9 +50,6 @@ const Header: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   text: {
     fontSize: 40,
     fontFamily: "Baloo_Regular400",
