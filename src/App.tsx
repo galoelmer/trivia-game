@@ -1,7 +1,7 @@
 import { StyleSheet, View, StatusBar } from "react-native";
 
-import Header from "./components/Header";
-import ImageBackground from "./components/ImageBackground";
+import Header from "./components/header";
+import ImageBackground from "./components/image-background";
 
 export default function App() {
   return (
