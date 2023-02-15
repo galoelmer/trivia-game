@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
+import { StyleSheet, View, StatusBar, Image } from "react-native";
 import Button from "./components/button";
 
 import Header from "./components/header";
@@ -16,10 +16,14 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground />
-      <Header />
-      {!displayTrivia && <Button onPress={handleButtonPress} />}
-      {displayTrivia && <TriviaCard />}
+      <ImageBackground>
+        <Header />
+        {displayTrivia ? (
+          <TriviaCard />
+        ) : (
+          <Button onPress={handleButtonPress} />
+        )}
+      </ImageBackground>
       <StatusBar barStyle="light-content" />
     </View>
   );

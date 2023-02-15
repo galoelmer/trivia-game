@@ -1,27 +1,37 @@
-import { Image, StyleSheet, View, Platform } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Platform,
+  ImageBackground,
+  ImageBackgroundProps,
+} from "react-native";
 
 const isWeb = Platform.OS == "web";
 const mobileBackgroundImage = require(`../../../assets/background-mobile.jpg`);
 const desktopBackgroundImage = require(`../../../assets/background-desktop.jpg`);
 
-export default function ImageBackground() {
+export default function ({ children }: ImageBackgroundProps) {
   return (
     <View style={styles.backgroundContainer}>
-      <Image
+      <ImageBackground
+        resizeMode="cover"
         source={isWeb ? desktopBackgroundImage : mobileBackgroundImage}
         style={styles.backgroundImage}
-      />
+      >
+        <View style={styles.childrenContainer}>{children}</View>
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   backgroundContainer: {
-    position: "absolute",
-    ...(isWeb && { top: 0, bottom: 0, right: 0, left: 0 }),
+    flex: 1,
   },
   backgroundImage: {
     flex: 1,
-    justifyContent: "center",
+  },
+  childrenContainer: {
+    flex: 1,
   },
 });
