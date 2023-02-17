@@ -4,8 +4,11 @@ import React from "react";
 import { getTriviaData } from "../../api";
 import LoaderAnimation from "../loader-animation";
 
+import { useCountdown } from "./useCountdown";
+
 const TriviaCard: React.FC = () => {
   const { data, loading } = getTriviaData();
+  const { timeLeft } = useCountdown({ startCountdown: 5 });
 
   if (loading) {
     return <LoaderAnimation />;
@@ -15,11 +18,13 @@ const TriviaCard: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.questionText}>{data.question}</Text>
       <View style={styles.answersContainer}>
-        <Image
-          source={{ uri: data.image.url }}
-          resizeMode="cover"
-          style={styles.answerImage}
-        />
+        {timeLeft === "0" && (
+          <Image
+            source={{ uri: data.image.url }}
+            resizeMode="cover"
+            style={styles.answerImage}
+          />
+        )}
         <View style={styles.answersList}>
           {data.answersList.map((answer) => (
             <View style={styles.answerItem}>
@@ -30,7 +35,9 @@ const TriviaCard: React.FC = () => {
           ))}
         </View>
       </View>
-      <Text style={styles.timer}>Timer goes here</Text>
+      <Text style={styles.timer}>
+        {timeLeft === "0" ? "Time Out!" : timeLeft}
+      </Text>
     </View>
   );
 };
