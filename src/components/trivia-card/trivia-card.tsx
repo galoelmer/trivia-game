@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, SectionList } from "react-native";
+import { StyleSheet, Text, View, Image, Platform } from "react-native";
 import React from "react";
 
 import { getTriviaData } from "../../api";
@@ -41,22 +41,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // borderWidth: 1,
-    // borderColor: "red",
+    alignSelf: "center",
     backgroundColor: "#fff",
     borderRadius: 10,
     overflow: "hidden",
-    // minWidth: "375px",
-    // maxWidth: "280px",
+    ...(Platform.OS === "web" && { minWidth: "375px", maxWidth: "650px" }),
     maxHeight: 480,
-    marginHorizontal: 10,
-    shadowColor: "red",
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    shadowOffset: {
-      width: 5,
-      height: 2,
-    },
+    width: "90%",
+    marginHorizontal: 30,
   },
   questionText: {
     textAlign: "center",
@@ -75,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   answersList: {
-    flex: 1,
+    flex: Platform.OS === "web" ? 2 : 1,
     flexDirection: "column",
   },
   answerItem: {
