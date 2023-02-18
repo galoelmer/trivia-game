@@ -3,12 +3,17 @@ import React from "react";
 
 import { getTriviaData } from "../../api";
 import LoaderAnimation from "../loader-animation";
+import AnswerItem from "./answer-item";
 
 import { useCountdown } from "./useCountdown";
 
 const TriviaCard: React.FC = () => {
   const { data, loading } = getTriviaData();
-  const { timeLeft } = useCountdown({ startCountdown: 5 });
+  const { timeLeft, stopCountdown } = useCountdown({ startCountdown: 5 });
+  const [message, setMessage] = React.useState<string | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(
+    null
+  );
 
   if (loading) {
     return <LoaderAnimation />;
@@ -27,16 +32,21 @@ const TriviaCard: React.FC = () => {
         )}
         <View style={styles.answersList}>
           {data.answersList.map((answer) => (
-            <View style={styles.answerItem}>
-              <Text key={answer} style={styles.answerText}>
-                {answer}
-              </Text>
+            <View key={answer} style={styles.answerItem}>
+              <AnswerItem
+                answer={answer}
+                correctAnswer={data.correctAnswer}
+                isTimeOut={timeLeft === "0"}
+                stopCountdown={stopCountdown}
+                setSelectAnswer={setSelectedAnswer}
+                setMessage={setMessage}
+              />
             </View>
           ))}
         </View>
       </View>
       <Text style={styles.timer}>
-        {timeLeft === "0" ? "Time Out!" : timeLeft}
+        {message ?? (timeLeft === "0" ? "Time Out!" : `Time Left: ${timeLeft}`)}
       </Text>
     </View>
   );
@@ -83,10 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-  },
-  answerText: {
-    fontSize: 24,
-    letterSpacing: 1,
   },
   timer: {
     textAlign: "center",
