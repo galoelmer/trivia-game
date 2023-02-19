@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Platform } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { getTriviaData } from "../../api";
 import LoaderAnimation from "../loader-animation";
@@ -7,46 +7,75 @@ import AnswerItem from "./answer-item";
 
 import { useCountdown } from "./useCountdown";
 
-const TriviaCard: React.FC = () => {
+interface props {
+  setDisplayTrivia: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const TriviaCard: React.FC<props> = ({ setDisplayTrivia }) => {
+  const [message, setMessage] = useState<string | null>(null);
+  const [indexQuestion, setIndexQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const { countdown, setCountdown, resetCountdown } = useCountdown({
+    startCountAt: 1255,
+  });
+
   const { data, loading } = getTriviaData();
-  const { timeLeft, stopCountdown } = useCountdown({ startCountdown: 5 });
-  const [message, setMessage] = React.useState<string | null>(null);
-  const [selectedAnswer, setSelectedAnswer] = React.useState<string | null>(
-    null
-  );
+  const isIntervalTimeOut = countdown === "0";
+
+  useEffect(() => {
+    if (isIntervalTimeOut && selectedAnswer === null) {
+      resetCountdown();
+      setTimeout(() => {
+        setCountdown(5);
+        setIndexQuestion((index) => ++index);
+        setMessage(null);
+      }, 4500);
+    }
+  }, [countdown]);
 
   if (loading) {
     return <LoaderAnimation />;
   }
 
+  if (indexQuestion === data.length) {
+    resetCountdown();
+    setMessage(null);
+    setIndexQuestion(0);
+    setDisplayTrivia(false);
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.questionText}>{data.question}</Text>
+      <Text style={styles.questionText}>{data[indexQuestion].question}</Text>
       <View style={styles.answersContainer}>
-        {timeLeft === "0" && (
+        {isIntervalTimeOut && (
           <Image
-            source={{ uri: data.image.url }}
+            source={{ uri: data[indexQuestion].image.url }}
             resizeMode="cover"
             style={styles.answerImage}
           />
         )}
         <View style={styles.answersList}>
-          {data.answersList.map((answer) => (
+          {data[indexQuestion].answersList.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
                 answer={answer}
-                correctAnswer={data.correctAnswer}
-                isTimeOut={timeLeft === "0"}
-                stopCountdown={stopCountdown}
+                correctAnswer={data[indexQuestion].correctAnswer}
+                isTimeOut={isIntervalTimeOut}
+                resetCountdown={resetCountdown}
                 setSelectAnswer={setSelectedAnswer}
                 setMessage={setMessage}
+                setIndexQuestion={setIndexQuestion}
+                setCountdown={setCountdown}
               />
             </View>
           ))}
         </View>
       </View>
       <Text style={styles.timer}>
-        {message ?? (timeLeft === "0" ? "Time Out!" : `Time Left: ${timeLeft}`)}
+        {message ??
+          (countdown === "0" ? "Time Out!" : `Time Left: ${countdown}`)}
       </Text>
     </View>
   );

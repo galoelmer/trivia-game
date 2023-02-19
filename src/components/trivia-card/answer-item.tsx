@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { FontAwesome } from "@expo/vector-icons";
@@ -12,29 +12,40 @@ interface props {
   answer: string;
   correctAnswer: string;
   isTimeOut: boolean;
-  stopCountdown: () => void;
-  setSelectAnswer: (answer: string) => void;
-  setMessage: (message: string) => void;
+  resetCountdown: () => void;
+  setSelectAnswer: React.Dispatch<React.SetStateAction<string | null>>;
+  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
+  setIndexQuestion: React.Dispatch<React.SetStateAction<number>>;
+  setCountdown: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AnswerItem: React.FC<props> = ({
   answer,
   correctAnswer,
   isTimeOut,
-  stopCountdown,
+  resetCountdown,
   setSelectAnswer,
   setMessage,
+  setIndexQuestion,
+  setCountdown,
 }) => {
   const isCorrectAnswer = answer === correctAnswer;
   const [textStyle, setTextStyle] = useState({});
   const [iconProps, setIconProps] = useState<FontAwesomeIconProps>({});
 
-  const addTextStyle = () => {
-    setTextStyle(isCorrectAnswer ? styles.correctAnswer : styles.wrongAnswer);
+  const setNextQuestion = () => {
+    setTimeout(() => {
+      setCountdown(5);
+      setIndexQuestion((index) => ++index);
+      setMessage(null);
+      setIconProps({});
+      setSelectAnswer(null);
+    }, 4500);
   };
 
   const handleOnPress = () => {
-    stopCountdown();
+    resetCountdown();
+    setNextQuestion();
     setSelectAnswer(answer);
     setMessage(isCorrectAnswer ? "Correct Answer!" : "Wrong Answer!");
     setIconProps({
@@ -45,13 +56,18 @@ const AnswerItem: React.FC<props> = ({
 
   useEffect(() => {
     if (isTimeOut) {
-      addTextStyle();
+      setTextStyle(isCorrectAnswer ? styles.correctAnswer : styles.wrongAnswer);
       isCorrectAnswer && setIconProps({ name: "check" });
     }
   }, [isTimeOut]);
 
   return (
-    <TouchableHighlight onPress={handleOnPress}>
+    <TouchableHighlight
+      activeOpacity={0.8}
+      underlayColor="rgba(27, 145, 192, 0.9)"
+      style={styles.highlight}
+      onPress={handleOnPress}
+    >
       <Text style={[styles.answerText, textStyle]}>
         {answer} {isTimeOut && <FontAwesome size={24} {...iconProps} />}
       </Text>
@@ -62,6 +78,12 @@ const AnswerItem: React.FC<props> = ({
 export default AnswerItem;
 
 const styles = StyleSheet.create({
+  highlight: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   answerText: {
     fontSize: 24,
     letterSpacing: 1,

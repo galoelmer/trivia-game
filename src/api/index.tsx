@@ -9,12 +9,12 @@ interface ITriviaData {
 
 interface IGetTriviaData {
   loading: boolean;
-  data: ITriviaData;
+  data: ITriviaData[];
 }
 
 export function getTriviaData(): IGetTriviaData {
   const { data, loading } = useQuery(QUERY_COLLECTION);
-  const items = data?.triviaDataCollection?.items[0];
+  const items = data?.triviaDataCollection?.items;
 
   return {
     data: items,

@@ -19,7 +19,7 @@ export default function App() {
       <ImageBackground>
         <Header />
         {displayTrivia ? (
-          <TriviaCard />
+          <TriviaCard setDisplayTrivia={setDisplayTrivia} />
         ) : (
           <Button onPress={handleButtonPress} />
         )}
