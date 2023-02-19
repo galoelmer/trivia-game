@@ -1,14 +1,21 @@
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 
-interface props {
-  onPress: () => void;
-}
+import { useTriviaContext } from "../../context";
 
-const Button: React.FC<props> = ({ onPress }) => {
+const Button: React.FC = () => {
+  const { displayTrivia, setDisplayTrivia } = useTriviaContext();
+
+  const handleOnPress = useCallback(() => {
+    setDisplayTrivia(!displayTrivia);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <TouchableHighlight style={styles.buttonHighlight} onPress={onPress}>
+      <TouchableHighlight
+        style={styles.buttonHighlight}
+        onPress={handleOnPress}
+      >
         <View style={styles.button}>
           <Text style={styles.buttonText}>Start Trivia</Text>
         </View>

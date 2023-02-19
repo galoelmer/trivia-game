@@ -1,32 +1,31 @@
 import { StyleSheet, Text, View, Image, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import { getTriviaData } from "../../api";
 import LoaderAnimation from "../loader-animation";
 import AnswerItem from "./answer-item";
 
 import { useCountdown } from "./useCountdown";
+import { useTriviaContext } from "../../context";
 
-interface props {
-  setDisplayTrivia: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export const DEFAULT_COUNTDOWN = 5;
 
-const TriviaCard: React.FC<props> = ({ setDisplayTrivia }) => {
+const TriviaCard: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [indexQuestion, setIndexQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const { countdown, setCountdown, resetCountdown } = useCountdown({
-    startCountAt: 1255,
+    startCountAt: DEFAULT_COUNTDOWN,
   });
 
-  const { data, loading } = getTriviaData();
+  const { questions, loading, setDisplayTrivia } = useTriviaContext();
+
   const isIntervalTimeOut = countdown === "0";
 
   useEffect(() => {
     if (isIntervalTimeOut && selectedAnswer === null) {
       resetCountdown();
       setTimeout(() => {
-        setCountdown(5);
+        setCountdown(DEFAULT_COUNTDOWN);
         setIndexQuestion((index) => ++index);
         setMessage(null);
       }, 4500);
@@ -37,7 +36,7 @@ const TriviaCard: React.FC<props> = ({ setDisplayTrivia }) => {
     return <LoaderAnimation />;
   }
 
-  if (indexQuestion === data.length) {
+  if (indexQuestion === questions.length) {
     resetCountdown();
     setMessage(null);
     setIndexQuestion(0);
@@ -47,21 +46,23 @@ const TriviaCard: React.FC<props> = ({ setDisplayTrivia }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.questionText}>{data[indexQuestion].question}</Text>
+      <Text style={styles.questionText}>
+        {questions[indexQuestion].question}
+      </Text>
       <View style={styles.answersContainer}>
         {isIntervalTimeOut && (
           <Image
-            source={{ uri: data[indexQuestion].image.url }}
+            source={{ uri: questions[indexQuestion].image.url }}
             resizeMode="cover"
             style={styles.answerImage}
           />
         )}
         <View style={styles.answersList}>
-          {data[indexQuestion].answersList.map((answer) => (
+          {questions[indexQuestion].answersList.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
                 answer={answer}
-                correctAnswer={data[indexQuestion].correctAnswer}
+                correctAnswer={questions[indexQuestion].correctAnswer}
                 isTimeOut={isIntervalTimeOut}
                 resetCountdown={resetCountdown}
                 setSelectAnswer={setSelectedAnswer}
@@ -75,7 +76,7 @@ const TriviaCard: React.FC<props> = ({ setDisplayTrivia }) => {
       </View>
       <Text style={styles.timer}>
         {message ??
-          (countdown === "0" ? "Time Out!" : `Time Left: ${countdown}`)}
+          (countdown === "0" ? "TIME'S UP!" : `Time Left: ${countdown}s`)}
       </Text>
     </View>
   );

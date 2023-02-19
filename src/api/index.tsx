@@ -1,13 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
 
-interface ITriviaData {
+export interface ITriviaData {
   question: string;
   answersList: string[];
   correctAnswer: string;
   image: { url: string };
 }
 
-interface IGetTriviaData {
+export interface IGetTriviaData {
   loading: boolean;
   data: ITriviaData[];
 }

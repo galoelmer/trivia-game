@@ -1,37 +1,10 @@
-import { useCallback, useState } from "react";
-import { StyleSheet, View, StatusBar, Image } from "react-native";
-import Button from "./components/button";
-
-import Header from "./components/header";
-import ImageBackground from "./components/image-background";
-import { TriviaCard } from "./components/trivia-card";
+import Layout from "./components/layout";
+import { TriviaProvider } from "./context";
 
 export default function App() {
-  const [displayTrivia, setDisplayTrivia] = useState(false);
-
-  const handleButtonPress = useCallback(
-    () => setDisplayTrivia(!displayTrivia),
-    []
-  );
-
   return (
-    <View style={styles.container}>
-      <ImageBackground>
-        <Header />
-        {displayTrivia ? (
-          <TriviaCard setDisplayTrivia={setDisplayTrivia} />
-        ) : (
-          <Button onPress={handleButtonPress} />
-        )}
-      </ImageBackground>
-      <StatusBar barStyle="light-content" />
-    </View>
+    <TriviaProvider>
+      <Layout />
+    </TriviaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A1E2A",
-  },
-});

@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import { FontAwesome } from "@expo/vector-icons";
+import { DEFAULT_COUNTDOWN } from "./trivia-card";
 
 interface FontAwesomeIconProps {
   name?: "check" | "close";
@@ -35,7 +36,7 @@ const AnswerItem: React.FC<props> = ({
 
   const setNextQuestion = () => {
     setTimeout(() => {
-      setCountdown(5);
+      setCountdown(DEFAULT_COUNTDOWN);
       setIndexQuestion((index) => ++index);
       setMessage(null);
       setIconProps({});
@@ -44,6 +45,7 @@ const AnswerItem: React.FC<props> = ({
   };
 
   const handleOnPress = () => {
+    if (isTimeOut) return;
     resetCountdown();
     setNextQuestion();
     setSelectAnswer(answer);
@@ -64,7 +66,7 @@ const AnswerItem: React.FC<props> = ({
   return (
     <TouchableHighlight
       activeOpacity={0.8}
-      underlayColor="rgba(27, 145, 192, 0.9)"
+      underlayColor={isTimeOut ? "#fff" : "rgba(27, 145, 192, 0.9)"}
       style={styles.highlight}
       onPress={handleOnPress}
     >
