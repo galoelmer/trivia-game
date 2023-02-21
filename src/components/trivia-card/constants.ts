@@ -1,0 +1,1 @@
+export const DEFAULT_COUNTDOWN = 5; // TODO: Change value to 15

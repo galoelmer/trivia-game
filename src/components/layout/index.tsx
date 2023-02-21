@@ -3,19 +3,21 @@ import { StatusBar, StyleSheet, View } from "react-native";
 
 import Header from "../header";
 import Button from "../button";
+import Modal from "../modal";
 import ImageBackground from "../image-background";
 import { TriviaCard } from "../trivia-card";
 
 import { useTriviaContext } from "../../context";
 
 const Layout = () => {
-  const { displayTrivia } = useTriviaContext();
+  const { displayTrivia, displayResults } = useTriviaContext();
 
   return (
     <View style={styles.container}>
       <ImageBackground>
         <Header />
         {displayTrivia ? <TriviaCard /> : <Button />}
+        {displayResults && <Modal />}
       </ImageBackground>
       <StatusBar barStyle="light-content" />
     </View>

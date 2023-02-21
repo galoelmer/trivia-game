@@ -7,30 +7,41 @@ import AnswerItem from "./answer-item";
 import { useCountdown } from "./useCountdown";
 import { useTriviaContext } from "../../context";
 
-export const DEFAULT_COUNTDOWN = 5;
+import { DEFAULT_COUNTDOWN } from "./constants";
 
 const TriviaCard: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
-  const [indexQuestion, setIndexQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const { countdown, setCountdown, resetCountdown } = useCountdown({
     startCountAt: DEFAULT_COUNTDOWN,
   });
 
-  const { questions, loading, setDisplayTrivia } = useTriviaContext();
+  const {
+    questions,
+    loading,
+    setDisplayTrivia,
+    selectedAnswer,
+    indexQuestion,
+    setIndexQuestion,
+    setSelectedAnswer,
+  } = useTriviaContext();
 
   const isIntervalTimeOut = countdown === "0";
 
+  // Continue to next question if countdown is over
   useEffect(() => {
     if (isIntervalTimeOut && selectedAnswer === null) {
       resetCountdown();
-      setTimeout(() => {
-        setCountdown(DEFAULT_COUNTDOWN);
-        setIndexQuestion((index) => ++index);
-        setMessage(null);
-      }, 4500);
+      setSelectedAnswer("No Answer");
+      setMessage(null);
+      if (indexQuestion !== questions.length - 1) {
+        setTimeout(() => {
+          setCountdown(DEFAULT_COUNTDOWN);
+          setSelectedAnswer(null);
+          setIndexQuestion((index) => index + 1);
+        }, 4500);
+      }
     }
-  }, [countdown]);
+  }, [isIntervalTimeOut]);
 
   if (loading) {
     return <LoaderAnimation />;
@@ -65,7 +76,6 @@ const TriviaCard: React.FC = () => {
                 correctAnswer={questions[indexQuestion].correctAnswer}
                 isTimeOut={isIntervalTimeOut}
                 resetCountdown={resetCountdown}
-                setSelectAnswer={setSelectedAnswer}
                 setMessage={setMessage}
                 setIndexQuestion={setIndexQuestion}
                 setCountdown={setCountdown}
@@ -101,9 +111,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "whitesmoke",
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 22,
     letterSpacing: 1,
-    lineHeight: 25,
+    lineHeight: 30,
     padding: 10,
   },
   answersContainer: {

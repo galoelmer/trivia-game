@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import React, { useEffect, useState } from "react";
-
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { DEFAULT_COUNTDOWN } from "./trivia-card";
+
+import { useTriviaContext } from "../../context";
+import { DEFAULT_COUNTDOWN } from "./constants";
 
 interface FontAwesomeIconProps {
   name?: "check" | "close";
@@ -14,7 +15,6 @@ interface props {
   correctAnswer: string;
   isTimeOut: boolean;
   resetCountdown: () => void;
-  setSelectAnswer: React.Dispatch<React.SetStateAction<string | null>>;
   setMessage: React.Dispatch<React.SetStateAction<string | null>>;
   setIndexQuestion: React.Dispatch<React.SetStateAction<number>>;
   setCountdown: React.Dispatch<React.SetStateAction<number>>;
@@ -25,7 +25,6 @@ const AnswerItem: React.FC<props> = ({
   correctAnswer,
   isTimeOut,
   resetCountdown,
-  setSelectAnswer,
   setMessage,
   setIndexQuestion,
   setCountdown,
@@ -34,13 +33,17 @@ const AnswerItem: React.FC<props> = ({
   const [textStyle, setTextStyle] = useState({});
   const [iconProps, setIconProps] = useState<FontAwesomeIconProps>({});
 
+  const { setSelectedAnswer, indexQuestion, questions } = useTriviaContext();
+
   const setNextQuestion = () => {
     setTimeout(() => {
-      setCountdown(DEFAULT_COUNTDOWN);
-      setIndexQuestion((index) => ++index);
       setMessage(null);
       setIconProps({});
-      setSelectAnswer(null);
+      setSelectedAnswer(null);
+      if (indexQuestion !== questions.length - 1) {
+        setCountdown(DEFAULT_COUNTDOWN);
+        setIndexQuestion((index) => index + 1);
+      }
     }, 4500);
   };
 
@@ -48,7 +51,7 @@ const AnswerItem: React.FC<props> = ({
     if (isTimeOut) return;
     resetCountdown();
     setNextQuestion();
-    setSelectAnswer(answer);
+    setSelectedAnswer(answer);
     setMessage(isCorrectAnswer ? "Correct Answer!" : "Wrong Answer!");
     setIconProps({
       name: isCorrectAnswer ? "check" : "close",
