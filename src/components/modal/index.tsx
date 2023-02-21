@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   modalView: {
     justifyContent: "space-between",
     width: "85%",
-    height: "35%",
+    maxWidth: 500,
     backgroundColor: "#fff",
     borderRadius: 20,
     borderWidth: 6,
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
     backgroundColor: "rgba(27, 145, 192, 0.9)",
+    marginTop: 25,
   },
   buttonText: {
     textAlign: "center",
