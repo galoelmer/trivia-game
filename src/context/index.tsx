@@ -1,35 +1,18 @@
 import React, {
-  useState,
   useEffect,
   createContext,
   useContext,
   useMemo,
   PropsWithChildren,
+  useReducer,
 } from "react";
 
-import { getTriviaData, ITriviaData } from "../api";
+import { getTriviaData } from "../api";
+import { reducer } from "./reducer";
 
-interface IAnswersResult {
-  correctAnswers: number;
-  wrongAnswers: number;
-}
+import { ITriviaContext, IAnswersResult } from "./types";
 
-interface ITriviaContext {
-  questions: ITriviaData[];
-  indexQuestion: number;
-  setIndexQuestion: React.Dispatch<React.SetStateAction<number>>;
-  loading: boolean;
-  displayTrivia: boolean;
-  setDisplayTrivia: React.Dispatch<React.SetStateAction<boolean>>;
-  displayResults: boolean;
-  setDisplayResults: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedAnswer: string | null;
-  setSelectedAnswer: React.Dispatch<React.SetStateAction<string | null>>;
-  results: IAnswersResult;
-  setResults: React.Dispatch<React.SetStateAction<IAnswersResult>>;
-}
-
-const defaultState = {
+const initialState = {
   questions: [],
   indexQuestion: 0,
   setIndexQuestion: () => {},
@@ -40,47 +23,79 @@ const defaultState = {
   setDisplayResults: () => {},
   selectedAnswer: null,
   setSelectedAnswer: () => {},
-  results: { correctAnswers: 0, wrongAnswers: 0 },
   setResults: () => {},
+  results: { correctAnswers: 0, wrongAnswers: 0 },
 };
 
-const TriviaContext = createContext<ITriviaContext>(defaultState);
-
+export const TriviaContext = createContext<ITriviaContext>(initialState);
 export const useTriviaContext = () => useContext(TriviaContext);
 
 export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [questions, setQuestions] = useState<Array<ITriviaData>>([]);
-  const [indexQuestion, setIndexQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [results, setResults] = useState<IAnswersResult>({
-    correctAnswers: 0,
-    wrongAnswers: 0,
-  });
-
-  const [displayTrivia, setDisplayTrivia] = useState(false);
-  const [displayResults, setDisplayResults] = useState(false);
-
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { data, loading } = getTriviaData();
+
+  const questions = useMemo(() => state.questions, [state.questions]);
+  const results = useMemo(() => state.results, [state.results]);
+  const indexQuestion = useMemo(
+    () => state.indexQuestion,
+    [state.indexQuestion]
+  );
+  const displayTrivia = useMemo(
+    () => state.displayTrivia,
+    [state.displayTrivia]
+  );
+  const displayResults = useMemo(
+    () => state.displayResults,
+    [state.displayResults]
+  );
+  const selectedAnswer = useMemo(
+    () => state.selectedAnswer,
+    [state.selectedAnswer]
+  );
+
+  const setIndexQuestion = (index: number) =>
+    dispatch({ type: "SET_INDEX_QUESTION", payload: index });
+
+  const setDisplayTrivia = (displayTrivia: boolean) =>
+    dispatch({
+      type: "SET_DISPLAY_TRIVIA",
+      payload: displayTrivia,
+    });
+
+  const setDisplayResults = (displayResults: boolean) =>
+    dispatch({
+      type: "SET_DISPLAY_RESULTS",
+      payload: displayResults,
+    });
+
+  const setSelectedAnswer = (selectedAnswer: string | null) =>
+    dispatch({
+      type: "SET_SELECTED_ANSWER",
+      payload: selectedAnswer,
+    });
+
+  const setResults = (results: IAnswersResult) =>
+    dispatch({ type: "SET_RESULTS", payload: results });
 
   useEffect(() => {
     if (!loading) {
-      setQuestions(data);
+      dispatch({ type: "SET_QUESTIONS", payload: data });
     }
   }, [loading]);
 
-  // Update results after each question is answered
+  // Update score results after each question is answered
   useEffect(() => {
     if (selectedAnswer) {
       if (selectedAnswer === questions[indexQuestion].correctAnswer) {
-        setResults((prev) => ({
-          ...prev,
-          correctAnswers: prev.correctAnswers + 1,
-        }));
+        setResults({
+          ...results,
+          correctAnswers: results.correctAnswers + 1,
+        });
       } else {
-        setResults((prev) => ({
-          ...prev,
-          wrongAnswers: prev.wrongAnswers + 1,
-        }));
+        setResults({
+          ...results,
+          wrongAnswers: results.wrongAnswers + 1,
+        });
       }
     }
   }, [selectedAnswer]);
@@ -95,7 +110,7 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setIndexQuestion(0);
         setSelectedAnswer(null);
         setDisplayResults(true);
-      }, 4500);
+      }, 3500);
     }
   }, [results]);
 

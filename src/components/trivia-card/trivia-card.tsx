@@ -37,7 +37,7 @@ const TriviaCard: React.FC = () => {
         setTimeout(() => {
           setCountdown(DEFAULT_COUNTDOWN);
           setSelectedAnswer(null);
-          setIndexQuestion((index) => index + 1);
+          setIndexQuestion(indexQuestion + 1);
         }, 4500);
       }
     }
@@ -77,7 +77,6 @@ const TriviaCard: React.FC = () => {
                 isTimeOut={isIntervalTimeOut}
                 resetCountdown={resetCountdown}
                 setMessage={setMessage}
-                setIndexQuestion={setIndexQuestion}
                 setCountdown={setCountdown}
               />
             </View>

@@ -16,7 +16,6 @@ interface props {
   isTimeOut: boolean;
   resetCountdown: () => void;
   setMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  setIndexQuestion: React.Dispatch<React.SetStateAction<number>>;
   setCountdown: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -26,14 +25,14 @@ const AnswerItem: React.FC<props> = ({
   isTimeOut,
   resetCountdown,
   setMessage,
-  setIndexQuestion,
   setCountdown,
 }) => {
   const isCorrectAnswer = answer === correctAnswer;
   const [textStyle, setTextStyle] = useState({});
   const [iconProps, setIconProps] = useState<FontAwesomeIconProps>({});
 
-  const { setSelectedAnswer, indexQuestion, questions } = useTriviaContext();
+  const { setSelectedAnswer, setIndexQuestion, indexQuestion, questions } =
+    useTriviaContext();
 
   const setNextQuestion = () => {
     setTimeout(() => {
@@ -42,7 +41,7 @@ const AnswerItem: React.FC<props> = ({
       setSelectedAnswer(null);
       if (indexQuestion !== questions.length - 1) {
         setCountdown(DEFAULT_COUNTDOWN);
-        setIndexQuestion((index) => index + 1);
+        setIndexQuestion(indexQuestion + 1);
       }
     }, 4500);
   };
