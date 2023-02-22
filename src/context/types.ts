@@ -21,22 +21,15 @@ export interface ITriviaContext {
 }
 
 export interface ITriviaReducer {
-    (state: ITriviaContext, action: ITriviaAction): ITriviaContext;
+    (state: ITriviaContext, action: ITriviaActions): ITriviaContext;
 }
 
-const TRIVIA_ACTIONS_TYPES = {
-    SET_QUESTIONS: "SET_QUESTIONS",
-    SET_INDEX_QUESTION: "SET_INDEX_QUESTION",
-    SET_LOADING: "SET_LOADING",
-    SET_DISPLAY_TRIVIA: "SET_DISPLAY_TRIVIA",
-    SET_DISPLAY_RESULTS: "SET_DISPLAY_RESULTS",
-    SET_SELECTED_ANSWER: "SET_SELECTED_ANSWER",
-    SET_RESULTS: "SET_RESULTS",
-} as const;
-
-export type TriviaActionType = keyof typeof TRIVIA_ACTIONS_TYPES;
-
-export interface ITriviaAction {
-    type: TriviaActionType;
-    payload?: any;
-}
+export type ITriviaActions =
+    | { type: "SET_QUESTIONS", payload: ITriviaData[] }
+    | { type: "SET_INDEX_QUESTION", payload: number }
+    | { type: "SET_LOADING", payload: boolean }
+    | { type: "SET_DISPLAY_TRIVIA", payload: boolean }
+    | { type: "SET_DISPLAY_RESULTS", payload: boolean }
+    | { type: "SET_SELECTED_ANSWER", payload: string | null }
+    | { type: "SET_RESULTS", payload: IAnswersResult }
+    ;
