@@ -16,7 +16,8 @@ const Layout = () => {
     <View style={styles.container}>
       <ImageBackground>
         <Header />
-        {displayTrivia ? <TriviaCard /> : <Button />}
+        {!displayTrivia && !displayResults && <Button />}
+        {displayTrivia && <TriviaCard />}
         {displayResults && <Modal />}
       </ImageBackground>
       <StatusBar barStyle="light-content" />
