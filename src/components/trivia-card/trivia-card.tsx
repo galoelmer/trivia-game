@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Image, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
+import * as Animatable from "react-native-animatable";
 
 import LoaderAnimation from "../loader-animation";
 import AnswerItem from "./answer-item";
 
 import { useCountdown } from "./useCountdown";
 import { useTriviaContext } from "../../context";
-
 import { DEFAULT_COUNTDOWN } from "./constants";
 
 const TriviaCard: React.FC = () => {
@@ -62,13 +62,18 @@ const TriviaCard: React.FC = () => {
       </Text>
       <View style={styles.answersContainer}>
         {isIntervalTimeOut && (
-          <Image
-            source={{ uri: questions[indexQuestion].image.url }}
-            resizeMode="cover"
-            style={styles.answerImage}
-          />
+          <Animatable.View style={{ flex: 1 }} animation="slideInLeft">
+            <Image
+              source={{ uri: questions[indexQuestion].image.url }}
+              resizeMode="cover"
+              style={styles.answerImage}
+            />
+          </Animatable.View>
         )}
-        <View style={styles.answersList}>
+        <Animatable.View
+          style={styles.answersList}
+          animation={isIntervalTimeOut ? "slideInLeft" : "lightSpeedIn"}
+        >
           {questions[indexQuestion].answersList.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
@@ -81,7 +86,7 @@ const TriviaCard: React.FC = () => {
               />
             </View>
           ))}
-        </View>
+        </Animatable.View>
       </View>
       <Text style={styles.timer}>
         {message ??
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "whitesmoke",
     fontWeight: "bold",
-    fontSize: 22,
+    fontSize: Platform.OS === "web" ? 28 : 22,
     letterSpacing: 1,
     lineHeight: 30,
     padding: 10,
