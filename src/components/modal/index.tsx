@@ -4,6 +4,7 @@ import {
   View,
   Modal as RNModal,
   Pressable,
+  Platform,
 } from "react-native";
 import React from "react";
 import { useFonts } from "expo-font";
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     borderWidth: 6,
-    borderStyle: "dashed",
+    borderStyle: Platform.OS === "android" ? "solid" : "dashed",
     borderColor: "rgba(27, 145, 192, 0.9)",
     padding: 35,
     alignItems: "center",
