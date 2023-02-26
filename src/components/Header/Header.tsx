@@ -1,9 +1,10 @@
 // TODO: add font family and fix web view text
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-
-import { useFonts } from "expo-font";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
+import { useFonts } from "expo-font";
+
+import { translate } from "../../i18n";
 
 enum Style {
   text1 = 1,
@@ -22,7 +23,7 @@ const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
 
   return (
     <Text style={[styles.text, shadowStyle[textStyleIndex + 1]]}>
-      General Knowledge Trivia
+      {translate("generalKnowledgeTrivia")}
     </Text>
   );
 };

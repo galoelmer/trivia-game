@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import React, { useCallback } from "react";
 
 import { useTriviaContext } from "../../context";
+import { translate } from "../../i18n";
 
 const Button: React.FC = () => {
   const { displayTrivia, setDisplayTrivia } = useTriviaContext();
@@ -17,7 +18,7 @@ const Button: React.FC = () => {
         onPress={handleOnPress}
       >
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Start Trivia</Text>
+          <Text style={styles.buttonText}>{translate("startTrivia")}</Text>
         </View>
       </TouchableHighlight>
     </View>
