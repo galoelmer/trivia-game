@@ -8,6 +8,7 @@ import ImageBackground from "../image-background";
 import { TriviaCard } from "../trivia-card";
 
 import { useTriviaContext } from "../../context";
+import LanguageSelector from "../languageSelector/languageSelectorView";
 
 const Layout = () => {
   const { displayTrivia, displayResults } = useTriviaContext();
@@ -16,7 +17,12 @@ const Layout = () => {
     <View style={styles.container}>
       <ImageBackground>
         <Header />
-        {!displayTrivia && !displayResults && <Button />}
+        {!displayTrivia && !displayResults && (
+          <>
+            <Button />
+            <LanguageSelector />
+          </>
+        )}
         {displayTrivia && <TriviaCard />}
         {displayResults && <Modal />}
       </ImageBackground>

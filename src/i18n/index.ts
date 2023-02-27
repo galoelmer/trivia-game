@@ -11,9 +11,6 @@ const i18n = new I18n({ en, es });
 i18n.locale = selectedLanguageCode;
 i18n.enableFallback = true;
 
-console.log('i18n.locale', i18n.locale);
-console.log('GET Locales', Localization.getLocales());
-
 const t = (key: TranslationKeys) => i18n.t(key);
 
 export { t as translate };
