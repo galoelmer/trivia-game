@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 import { useFonts } from "expo-font";
 
-import { translate } from "../../i18n";
+import { useTranslate } from "../../i18n";
 
 enum Style {
   text1 = 1,
@@ -15,6 +15,8 @@ enum Style {
 type ITextStyleIndex = { textStyleIndex: number };
 
 const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
+  const { translate } = useTranslate();
+
   const shadowStyle = {
     [`${Style.text1}`]: styles.text1,
     [`${Style.text2}`]: styles.text2,

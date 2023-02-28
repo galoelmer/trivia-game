@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 
+import { localeType } from "../i18n";
+
 export interface ITriviaData {
   question: string;
   answersList: string[];
@@ -12,19 +14,27 @@ export interface IGetTriviaData {
   data: ITriviaData[];
 }
 
-export function getTriviaData(): IGetTriviaData {
-  const { data, loading } = useQuery(QUERY_COLLECTION);
+export interface IGetTriviaProps {
+  locale: localeType;
+}
+
+export const getTriviaData = ({
+  locale = "en-US",
+}: IGetTriviaProps): IGetTriviaData => {
+  const { data, loading } = useQuery(QUERY_COLLECTION, {
+    variables: { locale },
+  });
   const items = data?.triviaDataCollection?.items;
 
   return {
     data: items,
     loading,
   };
-}
+};
 
 const QUERY_COLLECTION = gql`
-  {
-    triviaDataCollection {
+  query getTriviaData($locale: String!) {
+    triviaDataCollection(locale: $locale) {
       items {
         question
         answersList
@@ -36,3 +46,17 @@ const QUERY_COLLECTION = gql`
     }
   }
 `;
+
+//   {
+//     triviaDataCollection {
+//       items {
+//         question
+//         answersList
+//         correctAnswer
+//         image {
+//           url
+//         }
+//       }
+//     }
+//   }
+// `;

@@ -9,6 +9,7 @@ import React, {
 
 import { getTriviaData } from "../api";
 import { reducer } from "./reducer";
+import { useTranslate } from "../i18n";
 
 import { ITriviaContext, IAnswersResult } from "./types";
 
@@ -31,8 +32,9 @@ export const TriviaContext = createContext<ITriviaContext>(initialState);
 export const useTriviaContext = () => useContext(TriviaContext);
 
 export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
+  const { locale } = useTranslate();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { data, loading } = getTriviaData();
+  const { data, loading } = getTriviaData({ locale });
 
   const questions = useMemo(() => state.questions, [state.questions]);
   const results = useMemo(() => state.results, [state.results]);

@@ -2,10 +2,11 @@ import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import React, { useCallback } from "react";
 
 import { useTriviaContext } from "../../context";
-import { translate } from "../../i18n";
+import { useTranslate } from "../../i18n";
 
 const Button: React.FC = () => {
   const { displayTrivia, setDisplayTrivia } = useTriviaContext();
+  const { translate } = useTranslate();
 
   const handleOnPress = useCallback(() => {
     setDisplayTrivia(!displayTrivia);

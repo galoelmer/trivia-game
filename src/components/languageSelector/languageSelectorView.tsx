@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,18 +9,30 @@ import {
   Pressable,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 import { useFonts } from "expo-font";
 
+import { useTranslate, LanguageCodeType, TranslationKeys } from "../../i18n";
+
 const languagesData = [
-  { id: "1", name: "English", code: "en" },
-  { id: "2", name: "Spanish", code: "es" },
+  { id: "1", name: "English", code: "en", locale: "en-US" },
+  { id: "2", name: "Spanish", code: "es", locale: "es-US" },
 ];
 
+// TODO: REFACTOR THIS COMPONENT
 const LanguageSelector = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const { languageCode, setLanguageCode, locale, setLocale, translate } =
+    useTranslate();
+
+  useEffect(() => {
+    const language = languagesData.find(
+      (language) => language.code === languageCode
+    )?.name as string;
+
+    setSelectedLanguage(language);
+  }, []);
 
   let [fontsLoaded] = useFonts({
     Baloo_Regular400,
@@ -36,7 +48,9 @@ const LanguageSelector = () => {
         style={styles.selectButton}
         onPress={() => setModalVisible(!modalVisible)}
       >
-        <Text style={styles.selectButtonText}>Select Language</Text>
+        <Text style={styles.selectButtonText}>
+          {translate("selectLanguage")}
+        </Text>
       </Pressable>
       <View style={styles.centeredView}>
         <Modal
@@ -48,14 +62,18 @@ const LanguageSelector = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={styles.modalHeader}>
-                <Text style={styles.modalHeaderText}>Select Language</Text>
+                <Text style={styles.modalHeaderText}>
+                  {translate("selectLanguage")}
+                </Text>
               </View>
               <FlatList
                 data={languagesData}
                 renderItem={({ item }) => (
                   <View style={styles.itemsWrapper}>
                     <TouchableOpacity
-                      onPress={() => setSelectedLanguage(item.name)}
+                      onPress={() => {
+                        setSelectedLanguage(item.name);
+                      }}
                       style={[
                         styles.items,
                         selectedLanguage === item.name && styles.itemsSelected,
@@ -68,7 +86,7 @@ const LanguageSelector = () => {
                             styles.itemTextSelected,
                         ]}
                       >
-                        {item.name}
+                        {translate(item.name.toLowerCase() as TranslationKeys)}
                       </Text>
                       {selectedLanguage === item.name && (
                         <FontAwesome
@@ -84,10 +102,20 @@ const LanguageSelector = () => {
                 keyExtractor={(item) => item.id}
               />
               <Pressable
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  const language = languagesData.find(
+                    (language) => language.name === selectedLanguage
+                  );
+
+                  setLanguageCode(language.code);
+                  setLocale(language.locale);
+                  setModalVisible(!modalVisible);
+                }}
                 style={styles.modalButton}
               >
-                <Text style={styles.modalButtonText}>Accept</Text>
+                <Text style={styles.modalButtonText}>
+                  {translate("accept")}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -139,9 +167,10 @@ const styles = StyleSheet.create({
   },
   modalHeaderText: {
     fontFamily: "Baloo_Regular400",
-    fontSize: 26,
+    fontSize: 24,
     letterSpacing: 1,
     textTransform: "uppercase",
+    textAlign: "center",
   },
   itemsWrapper: {
     flexDirection: "row",

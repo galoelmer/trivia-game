@@ -8,12 +8,14 @@ import AnswerItem from "./answer-item";
 import { useCountdown } from "./useCountdown";
 import { useTriviaContext } from "../../context";
 import { DEFAULT_COUNTDOWN } from "./constants";
+import { useTranslate } from "../../i18n";
 
 const TriviaCard: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const { countdown, setCountdown, resetCountdown } = useCountdown({
     startCountAt: DEFAULT_COUNTDOWN,
   });
+  const { translate } = useTranslate();
 
   const {
     questions,
@@ -90,7 +92,9 @@ const TriviaCard: React.FC = () => {
       </View>
       <Text style={styles.timer}>
         {message ??
-          (countdown === "0" ? "TIME'S UP!" : `Time Left: ${countdown}s`)}
+          (countdown === "0"
+            ? translate("timeIsUp")
+            : `${translate("timeLeft")}: ${countdown}s`)}
       </Text>
     </View>
   );

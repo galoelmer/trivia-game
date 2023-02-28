@@ -11,10 +11,12 @@ import { useFonts } from "expo-font";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 
 import { useTriviaContext } from "../../context";
+import { useTranslate } from "../../i18n";
 
 const Modal = () => {
   const { displayResults, setDisplayResults, results, setResults } =
     useTriviaContext();
+  const { translate } = useTranslate();
 
   let [fontsLoaded] = useFonts({
     Baloo_Regular400,
@@ -39,14 +41,16 @@ const Modal = () => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalText}>
-              <Text style={[styles.modalTextHeader]}>Final Score</Text>
+              <Text style={[styles.modalTextHeader]}>
+                {translate("finalScore")}
+              </Text>
               <Text style={[styles.modalTextBody]}>
-                Correct: {results.correctAnswers} {"\n"} Incorrect:{" "}
-                {results.wrongAnswers}
+                {translate("correct")}: {results.correctAnswers} {"\n"}
+                {translate("incorrect")}: {results.wrongAnswers}
               </Text>
             </View>
             <Pressable style={styles.button} onPress={handleButtonPress}>
-              <Text style={styles.buttonText}>OK</Text>
+              <Text style={styles.buttonText}>{translate("ok")}</Text>
             </Pressable>
           </View>
         </View>
