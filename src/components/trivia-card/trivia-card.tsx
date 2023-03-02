@@ -2,13 +2,14 @@ import { StyleSheet, Text, View, Image, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 
-import LoaderAnimation from "../loader-animation";
+import LoaderAnimation from "components/loader-animation";
 import AnswerItem from "./answer-item";
 
+import { useTriviaContext } from "context/trivia";
+import { useTranslate } from "context/i18n";
 import { useCountdown } from "./useCountdown";
-import { useTriviaContext } from "../../context";
+
 import { DEFAULT_COUNTDOWN } from "./constants";
-import { useTranslate } from "../../i18n";
 
 const TriviaCard: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);

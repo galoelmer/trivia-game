@@ -7,9 +7,10 @@ import React, {
   useReducer,
 } from "react";
 
-import { getTriviaData } from "../api";
+import { getTriviaData } from "services/api";
+import { useTranslate } from "context/i18n";
+
 import { reducer } from "./reducer";
-import { useTranslate } from "../i18n";
 
 import { ITriviaContext, IAnswersResult } from "./types";
 

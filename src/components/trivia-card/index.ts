@@ -1,1 +1,1 @@
-export { default as TriviaCard } from './trivia-card'
+export { default } from "./trivia-card";

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 import { useFonts } from "expo-font";
 
-import { useTranslate } from "../../i18n";
+import { useTranslate } from "context/i18n";
 
 enum Style {
   text1 = 1,

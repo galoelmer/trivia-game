@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
-import { localeType } from "../i18n";
+import { localeType } from "context/i18n";
 
 export interface ITriviaData {
   question: string;

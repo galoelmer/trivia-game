@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import React, { useCallback } from "react";
 
-import { useTriviaContext } from "../../context";
-import { useTranslate } from "../../i18n";
+import { useTriviaContext } from "context/trivia";
+import { useTranslate } from "context/i18n";
 
 const Button: React.FC = () => {
   const { displayTrivia, setDisplayTrivia } = useTriviaContext();

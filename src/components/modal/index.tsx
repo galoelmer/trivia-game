@@ -10,8 +10,8 @@ import React from "react";
 import { useFonts } from "expo-font";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 
-import { useTriviaContext } from "../../context";
-import { useTranslate } from "../../i18n";
+import { useTriviaContext } from "context/trivia";
+import { useTranslate } from "context/i18n";
 
 const Modal = () => {
   const { displayResults, setDisplayResults, results, setResults } =

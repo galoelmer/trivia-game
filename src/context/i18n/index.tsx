@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
+
 import { en, es } from "./supportedLanguages";
 
 const supportedLanguages = Object.assign({}, en, es);

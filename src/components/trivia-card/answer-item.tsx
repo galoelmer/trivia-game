@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useTriviaContext } from "../../context";
+import { useTriviaContext } from "context/trivia";
+import { useTranslate } from "context/i18n";
+
 import { DEFAULT_COUNTDOWN } from "./constants";
-import { useTranslate } from "../../i18n";
 
 interface FontAwesomeIconProps {
   name?: "check" | "close";

@@ -12,7 +12,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 import { useFonts } from "expo-font";
 
-import { useTranslate, LanguageCodeType, TranslationKeys } from "../../i18n";
+import { useTranslate, LanguageCodeType, TranslationKeys } from "context/i18n";
 
 const languagesData = [
   { id: "1", name: "English", code: "en", locale: "en-US" },
