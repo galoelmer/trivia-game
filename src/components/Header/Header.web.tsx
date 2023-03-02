@@ -1,21 +1,23 @@
-import React from "react";
+import React, { memo } from "react";
+import Ztext from "react-ztext";
 import { View, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 
-import Ztext from "react-ztext";
+import { useTranslate } from "../../context/i18n";
 
-const Header: React.FC = () => {
-  let [fontsLoaded] = useFonts({
-    Baloo_Regular400,
-  });
+const addNewLineAfterEachWord = (str: string) => {
+  return str.split(" ").map((word, index) => (
+    <span key={index}>
+      {word} <br />
+    </span>
+  ));
+};
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
+const HeaderWithShadow = memo(({ text }: { text: string }) => {
+  const headerText = addNewLineAfterEachWord(text);
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={text}>
       <Ztext
         depth="0.5rem"
         direction="both"
@@ -37,11 +39,24 @@ const Header: React.FC = () => {
           textShadow: "0px 5px #BABABA",
         }}
       >
-        General <br /> Knowledge <br />
-        Trivia
+        {headerText}
       </Ztext>
     </View>
   );
+});
+
+const Header: React.FC = () => {
+  const { translate } = useTranslate();
+
+  let [fontsLoaded] = useFonts({
+    Baloo_Regular400,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return <HeaderWithShadow text={translate("generalKnowledgeTrivia")} />;
 };
 
 const styles = StyleSheet.create({
