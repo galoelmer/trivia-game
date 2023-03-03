@@ -1,4 +1,5 @@
 import { registerRootComponent } from "expo";
+import Constants from "expo-constants";
 import {
   ApolloClient,
   InMemoryCache,
@@ -20,14 +21,18 @@ const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+const CONTENTFUL_ACCESS_TOKEN =
+  Constants?.manifest?.extra?.contentfulAccessToken;
+const CONTENTFUL_SPACE_ID = Constants?.manifest?.extra?.contentfulSpaceId;
+
 const client = new ApolloClient({
   link: ApolloLink.from([
     errorLink,
     new HttpLink({
-      uri: "https://graphql.contentful.com/content/v1/spaces/lf7chirx6zkx",
+      uri: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`,
       credentials: "same-origin",
       headers: {
-        Authorization: "Bearer HF6btihZtSJpSjVkGWDzH4azTwlNSboZmwLTmPKyXZk",
+        Authorization: `Bearer ${CONTENTFUL_ACCESS_TOKEN}`,
       },
     }),
   ]),

@@ -106,7 +106,7 @@ const LanguageSelector = () => {
                   const language = languagesData.find(
                     (language) => language.name === selectedLanguage
                   );
-
+                  // TODO: FIX THIS typescript error
                   setLanguageCode(language.code);
                   setLocale(language.locale);
                   setModalVisible(!modalVisible);

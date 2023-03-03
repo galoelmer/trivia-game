@@ -1,13 +1,18 @@
-import { ITriviaData } from "@services/api";
+import { GetTriviaDataQuery } from "generated/graphql";
 
 export interface IAnswersResult {
   correctAnswers: number;
   wrongAnswers: number;
 }
 
+type IGetTriviaDataCollection =
+  NonNullable<GetTriviaDataQuery>["triviaDataCollection"];
+export type IGetTriviaQuestions =
+  NonNullable<IGetTriviaDataCollection>["items"];
+
 export interface ITriviaContext {
   loading: boolean;
-  questions: ITriviaData[];
+  questions: IGetTriviaQuestions;
   results: IAnswersResult;
   indexQuestion: number;
   setIndexQuestion: (index: number) => void;
@@ -25,7 +30,7 @@ export interface ITriviaReducer {
 }
 
 export type ITriviaActions =
-  | { type: "SET_QUESTIONS"; payload: ITriviaData[] }
+  | { type: "SET_QUESTIONS"; payload: IGetTriviaQuestions }
   | { type: "SET_INDEX_QUESTION"; payload: number }
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_DISPLAY_TRIVIA"; payload: boolean }

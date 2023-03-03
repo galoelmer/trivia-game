@@ -10,6 +10,7 @@ module.exports = function (api) {
             components: "./src/components",
             context: "./src/context",
             services: "./src/services",
+            generated: "./src/generated",
           },
         },
       ],

@@ -1,0 +1,12 @@
+query getTriviaData($locale: String!) {
+  triviaDataCollection(locale: $locale) {
+    items {
+      question
+      answersList
+      correctAnswer
+      image {
+        url
+      }
+    }
+  }
+}

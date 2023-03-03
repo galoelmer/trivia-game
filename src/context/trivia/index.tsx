@@ -89,7 +89,7 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
   // Update score results after each question is answered
   useEffect(() => {
     if (selectedAnswer) {
-      if (selectedAnswer === questions[indexQuestion].correctAnswer) {
+      if (selectedAnswer === questions[indexQuestion]?.correctAnswer) {
         setResults({
           ...results,
           correctAnswers: results.correctAnswers + 1,

@@ -1,28 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
+import { useGetTriviaDataQuery } from "generated/graphql";
 
 import { localeType } from "context/i18n";
-
-export interface ITriviaData {
-  question: string;
-  answersList: string[];
-  correctAnswer: string;
-  image: { url: string };
-}
-
-export interface IGetTriviaData {
-  loading: boolean;
-  data: ITriviaData[];
-}
 
 export interface IGetTriviaProps {
   locale: localeType;
 }
 
-export const getTriviaData = ({
-  locale = "en-US",
-}: IGetTriviaProps): IGetTriviaData => {
-  const { data, loading, refetch } = useQuery(QUERY_COLLECTION, {
+export const getTriviaData = ({ locale = "en-US" }: IGetTriviaProps) => {
+  const { data, loading, refetch } = useGetTriviaDataQuery({
     variables: { locale },
     fetchPolicy: "network-only",
     nextFetchPolicy: "cache-first",
@@ -32,25 +18,10 @@ export const getTriviaData = ({
     refetch();
   }, [locale]);
 
-  const items = data?.triviaDataCollection?.items;
+  const items = data?.triviaDataCollection?.items || [];
 
   return {
     data: items,
     loading,
   };
 };
-
-const QUERY_COLLECTION = gql`
-  query getTriviaData($locale: String!) {
-    triviaDataCollection(locale: $locale) {
-      items {
-        question
-        answersList
-        correctAnswer
-        image {
-          url
-        }
-      }
-    }
-  }
-`;
