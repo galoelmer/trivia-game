@@ -1,5 +1,3 @@
-/* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
 export type Maybe<T> = T | null;
@@ -21,20 +19,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /**
-   * A date-time string at UTC, such as 2007-12-03T10:15:30Z,
-   *     compliant with the 'date-time' format outlined in section 5.6 of
-   *     the RFC 3339 profile of the ISO 8601 standard for representation
-   *     of dates and times using the Gregorian calendar.
-   */
   DateTime: any;
-  /** The 'Dimension' type represents dimensions as whole numeric values between `1` and `4000`. */
   Dimension: any;
-  /** The 'HexColor' type represents color in `rgb:ffffff` string format. */
   HexColor: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** The 'Quality' type represents quality as whole numeric values between `1` and `100`. */
   Quality: any;
 };
 
@@ -1188,90 +1176,20 @@ export type GetTriviaDataQuery = {
   } | null;
 };
 
-export const GetTriviaDataDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getTriviaData" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "locale" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "triviaDataCollection" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "locale" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "locale" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "items" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "question" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "answersList" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "correctAnswer" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "image" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "url" },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetTriviaDataQuery, GetTriviaDataQueryVariables>;
+export const GetTriviaDataDocument = gql`
+  query getTriviaData($locale: String!) {
+    triviaDataCollection(locale: $locale) {
+      items {
+        question
+        answersList
+        correctAnswer
+        image {
+          url
+        }
+      }
+    }
+  }
+`;
 
 /**
  * __useGetTriviaDataQuery__
