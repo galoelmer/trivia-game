@@ -1,8 +1,6 @@
 import React, { memo } from "react";
 import Ztext from "react-ztext";
 import { View, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 
 import { useTranslate } from "../../context/i18n";
 
@@ -30,7 +28,7 @@ const HeaderWithShadow = memo(({ text }: { text: string }) => {
         style={{
           textAlign: "center",
           color: "#fff",
-          fontFamily: "Baloo_Regular400, monospace",
+          fontFamily: "Baloo, monospace",
           fontSize: "3.2em",
           letterSpacing: 6,
           lineHeight: 1,
@@ -47,14 +45,6 @@ const HeaderWithShadow = memo(({ text }: { text: string }) => {
 
 const Header: React.FC = () => {
   const { translate } = useTranslate();
-
-  let [fontsLoaded] = useFonts({
-    Baloo_Regular400,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return <HeaderWithShadow text={translate("generalKnowledgeTrivia")} />;
 };

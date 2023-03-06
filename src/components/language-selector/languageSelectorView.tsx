@@ -9,8 +9,6 @@ import {
   Pressable,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
-import { useFonts } from "expo-font";
 
 import { useTranslate, LanguageCodeType, TranslationKeys } from "context/i18n";
 
@@ -33,14 +31,6 @@ const LanguageSelector = () => {
 
     setSelectedLanguage(language);
   }, []);
-
-  let [fontsLoaded] = useFonts({
-    Baloo_Regular400,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <>
@@ -132,7 +122,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   selectButtonText: {
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Regular",
     fontSize: 18,
     textTransform: "capitalize",
     letterSpacing: 1,
@@ -166,7 +156,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   modalHeaderText: {
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Bold",
     fontSize: 24,
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -191,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   itemText: {
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Medium",
     fontSize: 18,
     letterSpacing: 1,
     textAlign: "center",
@@ -217,7 +207,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalButtonText: {
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Bold",
     fontSize: 22,
     textTransform: "uppercase",
     letterSpacing: 1,

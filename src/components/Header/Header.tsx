@@ -1,8 +1,5 @@
-// TODO: add font family and fix web view text
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
-import { useFonts } from "expo-font";
 
 import { useTranslate } from "context/i18n";
 
@@ -31,14 +28,6 @@ const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
 };
 
 const Header: React.FC = () => {
-  let [fontsLoaded] = useFonts({
-    Baloo_Regular400,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <SafeAreaView>
       <View>
@@ -55,13 +44,12 @@ const Header: React.FC = () => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 40,
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-ExtraBold",
     letterSpacing: 8,
     lineHeight: 46,
     textAlign: "center",
     textTransform: "uppercase",
     color: "white",
-    fontWeight: "600",
     textShadowColor: "#BABABA",
     textShadowRadius: 1,
     left: 0,

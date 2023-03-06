@@ -7,8 +7,6 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import { useFonts } from "expo-font";
-import { Baloo_Regular400 } from "@expo-google-fonts/baloo";
 
 import { useTriviaContext } from "context/trivia";
 import { useTranslate } from "context/i18n";
@@ -17,14 +15,6 @@ const Modal = () => {
   const { displayResults, setDisplayResults, results, setResults } =
     useTriviaContext();
   const { translate } = useTranslate();
-
-  let [fontsLoaded] = useFonts({
-    Baloo_Regular400,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const handleButtonPress = () => {
     setDisplayResults(false);
@@ -91,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTextHeader: {
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Bold",
     fontSize: 28,
     marginBottom: 5,
     letterSpacing: 2,
@@ -121,7 +111,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "#fff",
-    fontFamily: "Baloo_Regular400",
+    fontFamily: "Baloo-Bold",
     fontSize: 22,
     letterSpacing: 2,
   },
