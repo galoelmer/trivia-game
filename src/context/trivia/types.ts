@@ -5,6 +5,7 @@ export interface IAnswersResult {
   wrongAnswers: number;
 }
 
+//TODO: Find a way to get this types from graphql without Null
 type IGetTriviaDataCollection =
   NonNullable<GetTriviaDataQuery>["triviaDataCollection"];
 export type IGetTriviaQuestions =

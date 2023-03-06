@@ -88,19 +88,16 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   // Update score results after each question is answered
   useEffect(() => {
-    if (selectedAnswer) {
-      if (selectedAnswer === questions[indexQuestion]?.correctAnswer) {
-        setResults({
-          ...results,
-          correctAnswers: results.correctAnswers + 1,
-        });
-      } else {
-        setResults({
-          ...results,
-          wrongAnswers: results.wrongAnswers + 1,
-        });
-      }
-    }
+    if (selectedAnswer === null) return;
+    const correctAnswer = questions[indexQuestion]?.correctAnswer;
+    const isCorrectAnswer = selectedAnswer === correctAnswer;
+
+    setResults({
+      ...results,
+      ...(isCorrectAnswer
+        ? { correctAnswers: results.correctAnswers + 1 }
+        : { wrongAnswers: results.wrongAnswers + 1 }),
+    });
   }, [selectedAnswer]);
 
   // Display trivia results after all questions are answered
