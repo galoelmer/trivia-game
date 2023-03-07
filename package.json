@@ -16,6 +16,7 @@
     "@expo/webpack-config": "^18.0.1",
     "expo": "~47.0.12",
     "expo-constants": "^14.2.1",
+    "expo-crypto": "^12.2.1",
     "expo-font": "~11.0.1",
     "expo-localization": "^14.1.1",
     "expo-status-bar": "~1.4.2",

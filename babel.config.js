@@ -11,6 +11,7 @@ module.exports = function (api) {
             context: "./src/context",
             services: "./src/services",
             generated: "./src/generated",
+            utils: "./src/utils",
           },
         },
       ],

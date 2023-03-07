@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useTriviaContext } from "context/trivia";
 import { useTranslate } from "context/i18n";
 
+import { generateHash } from "utils/generateHash";
 import { DEFAULT_COUNTDOWN } from "./constants";
 
 interface FontAwesomeIconProps {
@@ -29,9 +30,11 @@ const AnswerItem: React.FC<props> = ({
   setMessage,
   setCountdown,
 }) => {
-  const isCorrectAnswer = answer === correctAnswer;
   const [textStyle, setTextStyle] = useState({});
   const [iconProps, setIconProps] = useState<FontAwesomeIconProps>({});
+
+  const answerHashRef = React.useRef<string | null>(null);
+  const isCorrectAnswer = answerHashRef.current === correctAnswer;
 
   const { setSelectedAnswer, setIndexQuestion, indexQuestion, questions } =
     useTriviaContext();
@@ -53,7 +56,7 @@ const AnswerItem: React.FC<props> = ({
     if (isTimeOut) return;
     resetCountdown();
     setNextQuestion();
-    setSelectedAnswer(answer);
+    setSelectedAnswer(answerHashRef.current);
     setMessage(
       isCorrectAnswer ? translate("correctAnswer") : translate("wrongAnswer")
     );
@@ -62,6 +65,10 @@ const AnswerItem: React.FC<props> = ({
       ...(!isCorrectAnswer && { color: "red" }),
     });
   };
+
+  useEffect(() => {
+    (async () => (answerHashRef.current = await generateHash(answer)))();
+  }, []);
 
   useEffect(() => {
     if (isTimeOut) {

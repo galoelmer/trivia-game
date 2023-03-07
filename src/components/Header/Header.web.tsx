@@ -28,7 +28,7 @@ const HeaderWithShadow = memo(({ text }: { text: string }) => {
         style={{
           textAlign: "center",
           color: "#fff",
-          fontFamily: "Baloo, monospace",
+          fontFamily: "Baloo-ExtraBold, sans-serif",
           fontSize: "3.2em",
           letterSpacing: 6,
           lineHeight: 1,
