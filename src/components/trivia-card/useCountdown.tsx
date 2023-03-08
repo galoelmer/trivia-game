@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface props {
   startCountAt: number;
@@ -14,10 +14,14 @@ export const useCountdown = ({ startCountAt = 0 }: props) => {
     }
   };
 
-  const resetCountdown = () => {
+  const resetCountdown = useCallback(() => {
     setCountdown(0);
     clearIntervalId();
-  };
+  }, []);
+
+  const handleSetCountdown = useCallback((countdown: number) => {
+    setCountdown(countdown);
+  }, []);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -31,7 +35,7 @@ export const useCountdown = ({ startCountAt = 0 }: props) => {
 
   return {
     countdown: countdown.toString(),
-    setCountdown,
+    setCountdown: handleSetCountdown,
     resetCountdown,
   };
 };

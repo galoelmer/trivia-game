@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, memo } from "react";
 import { Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -20,8 +20,8 @@ interface props {
   correctAnswer: string;
   isTimeOut: boolean;
   resetCountdown: () => void;
-  setMessage: React.Dispatch<React.SetStateAction<string | null>>;
-  setCountdown: React.Dispatch<React.SetStateAction<number>>;
+  setMessage: (text: string | null) => void;
+  setCountdown: (countdown: number) => void;
 }
 
 const AnswerItem: React.FC<props> = ({
@@ -38,6 +38,7 @@ const AnswerItem: React.FC<props> = ({
 
   const answerHashRef = useRef<string | null>(null);
   const isCorrectAnswer = correctAnswer === answerHashRef.current;
+  console.log("🚀 ~ file: index.tsx:41 ~ isCorrectAnswer:", isCorrectAnswer);
 
   const { setSelectedAnswer, setIndexQuestion, indexQuestion, questions } =
     useTriviaContext();
@@ -101,4 +102,4 @@ const AnswerItem: React.FC<props> = ({
   );
 };
 
-export default AnswerItem;
+export default memo(AnswerItem);

@@ -1,5 +1,5 @@
 import { Text, View, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 
 import LoaderAnimation from "components/loader-animation";
@@ -33,6 +33,10 @@ const TriviaCard: React.FC = () => {
   } = useTriviaContext();
 
   const isIntervalTimeOut = countdown === "0";
+
+  const handleSetMessage = useCallback((text: string | null) => {
+    setMessage(text);
+  }, []);
 
   useEffect(() => {
     if (!loading && questions.length) {
@@ -94,7 +98,7 @@ const TriviaCard: React.FC = () => {
                 correctAnswer={questions[indexQuestion]?.correctAnswer ?? ""}
                 isTimeOut={isIntervalTimeOut}
                 resetCountdown={resetCountdown}
-                setMessage={setMessage}
+                setMessage={handleSetMessage}
                 setCountdown={setCountdown}
               />
             </View>
