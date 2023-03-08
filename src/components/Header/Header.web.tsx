@@ -1,8 +1,10 @@
 import React, { memo } from "react";
 import Ztext from "react-ztext";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 
 import { useTranslate } from "../../context/i18n";
+
+import styles from "./styles.web";
 
 const addNewLineAfterEachWord = (str: string) => {
   return str.split(" ").map((word, index) => (
@@ -48,12 +50,5 @@ const Header: React.FC = () => {
 
   return <HeaderWithShadow text={translate("generalKnowledgeTrivia")} />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default Header;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
+import { Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { useTriviaContext } from "context/trivia";
 import { useTranslate } from "context/i18n";
 
 import { generateHash } from "utils/generateHash";
-import { DEFAULT_COUNTDOWN } from "./constants";
+import { DEFAULT_COUNTDOWN } from "../constants";
+
+import styles from "./styles";
 
 interface FontAwesomeIconProps {
   name?: "check" | "close";
@@ -92,22 +94,3 @@ const AnswerItem: React.FC<props> = ({
 };
 
 export default AnswerItem;
-
-const styles = StyleSheet.create({
-  highlight: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  answerText: {
-    fontSize: 24,
-    letterSpacing: 1,
-  },
-  correctAnswer: {
-    color: "green",
-  },
-  wrongAnswer: {
-    color: "#ddd",
-  },
-});

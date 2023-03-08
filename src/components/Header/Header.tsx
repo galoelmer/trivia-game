@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 
 import { useTranslate } from "context/i18n";
+
+import styles from "./styles";
 
 enum Style {
   text1 = 1,
@@ -40,42 +42,5 @@ const Header: React.FC = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 40,
-    fontFamily: "Baloo-ExtraBold",
-    letterSpacing: 8,
-    lineHeight: 46,
-    textAlign: "center",
-    textTransform: "uppercase",
-    color: "white",
-    textShadowColor: "#BABABA",
-    textShadowRadius: 1,
-    left: 0,
-    right: 0,
-    paddingTop: 20,
-  },
-  text1: {
-    textShadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
-  text2: {
-    position: "absolute",
-    textShadowOffset: {
-      width: 0,
-      height: 4,
-    },
-  },
-  text3: {
-    position: "absolute",
-    textShadowOffset: {
-      width: 0,
-      height: 6,
-    },
-  },
-});
 
 export default Header;
