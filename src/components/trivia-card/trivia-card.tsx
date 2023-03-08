@@ -10,17 +10,19 @@ import { useTranslate } from "context/i18n";
 import { useCountdown } from "./useCountdown";
 
 import { DEFAULT_COUNTDOWN } from "./constants";
+import { getTriviaData } from "services/api";
 
 const TriviaCard: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const { countdown, setCountdown, resetCountdown } = useCountdown({
     startCountAt: DEFAULT_COUNTDOWN,
   });
-  const { translate } = useTranslate();
+
+  const { translate, locale } = useTranslate();
+  const { loading, data: questions } = getTriviaData({ locale });
 
   const {
-    questions,
-    loading,
+    setQuestions,
     setDisplayTrivia,
     selectedAnswer,
     indexQuestion,
@@ -29,6 +31,12 @@ const TriviaCard: React.FC = () => {
   } = useTriviaContext();
 
   const isIntervalTimeOut = countdown === "0";
+
+  useEffect(() => {
+    if (!loading && questions.length) {
+      setQuestions(questions);
+    }
+  }, [loading, questions]);
 
   // Continue to next question if countdown is over
   useEffect(() => {
@@ -58,6 +66,7 @@ const TriviaCard: React.FC = () => {
     return null;
   }
 
+  // TODO: fix types for questions and answers list
   return (
     <View style={styles.container}>
       <Text style={styles.questionText}>

@@ -7,18 +7,15 @@ import React, {
   useReducer,
 } from "react";
 
-import { getTriviaData } from "services/api";
-import { useTranslate } from "context/i18n";
-
 import { reducer } from "./reducer";
 
-import { ITriviaContext, IAnswersResult } from "./types";
+import { ITriviaContext, IAnswersResult, IGetTriviaQuestions } from "./types";
 
 const initialState = {
   questions: [],
+  setQuestions: () => {},
   indexQuestion: 0,
   setIndexQuestion: () => {},
-  loading: true,
   displayTrivia: false,
   setDisplayTrivia: () => {},
   displayResults: false,
@@ -33,9 +30,7 @@ export const TriviaContext = createContext<ITriviaContext>(initialState);
 export const useTriviaContext = () => useContext(TriviaContext);
 
 export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const { locale } = useTranslate();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { data, loading } = getTriviaData({ locale });
 
   const questions = useMemo(() => state.questions, [state.questions]);
   const results = useMemo(() => state.results, [state.results]);
@@ -55,6 +50,9 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
     () => state.selectedAnswer,
     [state.selectedAnswer]
   );
+
+  const setQuestions = (questions: IGetTriviaQuestions) =>
+    dispatch({ type: "SET_QUESTIONS", payload: questions });
 
   const setIndexQuestion = (index: number) =>
     dispatch({ type: "SET_INDEX_QUESTION", payload: index });
@@ -79,12 +77,6 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const setResults = (results: IAnswersResult) =>
     dispatch({ type: "SET_RESULTS", payload: results });
-
-  useEffect(() => {
-    if (!loading) {
-      dispatch({ type: "SET_QUESTIONS", payload: data });
-    }
-  }, [loading]);
 
   // Update score results after each question is answered
   useEffect(() => {
@@ -117,9 +109,9 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const values = useMemo(
     () => ({
       questions,
+      setQuestions,
       indexQuestion,
       setIndexQuestion,
-      loading,
       displayTrivia,
       setDisplayTrivia,
       displayResults,
@@ -131,9 +123,9 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }),
     [
       questions,
+      setQuestions,
       indexQuestion,
       setIndexQuestion,
-      loading,
       displayTrivia,
       setDisplayTrivia,
       displayResults,

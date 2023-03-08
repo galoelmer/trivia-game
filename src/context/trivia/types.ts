@@ -12,8 +12,8 @@ export type IGetTriviaQuestions =
   NonNullable<IGetTriviaDataCollection>["items"];
 
 export interface ITriviaContext {
-  loading: boolean;
   questions: IGetTriviaQuestions;
+  setQuestions: (questions: IGetTriviaQuestions) => void;
   results: IAnswersResult;
   indexQuestion: number;
   setIndexQuestion: (index: number) => void;
