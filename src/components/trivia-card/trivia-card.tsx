@@ -66,17 +66,16 @@ const TriviaCard: React.FC = () => {
     return null;
   }
 
-  // TODO: fix types for questions and answers list
   return (
     <View style={styles.container}>
       <Text style={styles.questionText}>
-        {questions[indexQuestion].question}
+        {questions[indexQuestion]?.question}
       </Text>
       <View style={styles.answersContainer}>
         {isIntervalTimeOut && (
           <Animatable.View style={{ flex: 1 }} animation="slideInLeft">
             <Image
-              source={{ uri: questions[indexQuestion].image.url }}
+              source={{ uri: questions[indexQuestion]?.image?.url ?? "" }}
               resizeMode="cover"
               style={styles.answerImage}
             />
@@ -86,11 +85,11 @@ const TriviaCard: React.FC = () => {
           style={styles.answersList}
           animation={isIntervalTimeOut ? "slideInLeft" : "lightSpeedIn"}
         >
-          {questions[indexQuestion].answersList.map((answer) => (
+          {questions[indexQuestion]?.answersList?.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
-                answer={answer}
-                correctAnswer={questions[indexQuestion].correctAnswer}
+                answer={answer ?? ""}
+                correctAnswer={questions[indexQuestion]?.correctAnswer ?? ""}
                 isTimeOut={isIntervalTimeOut}
                 resetCountdown={resetCountdown}
                 setMessage={setMessage}
