@@ -5,7 +5,7 @@ export interface IAnswersResult {
   wrongAnswers: number;
 }
 
-type IGetTriviaQuestions = NonNullable<
+export type IGetTriviaQuestions = NonNullable<
   GetTriviaDataQuery["triviaDataCollection"]
 >["items"];
 

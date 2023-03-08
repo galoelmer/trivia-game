@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -34,9 +34,10 @@ const AnswerItem: React.FC<props> = ({
 }) => {
   const [textStyle, setTextStyle] = useState({});
   const [iconProps, setIconProps] = useState<FontAwesomeIconProps>({});
+  const [loading, setLoading] = useState(true);
 
-  const answerHashRef = React.useRef<string | null>(null);
-  const isCorrectAnswer = answerHashRef.current === correctAnswer;
+  const answerHashRef = useRef<string | null>(null);
+  const isCorrectAnswer = correctAnswer === answerHashRef.current;
 
   const { setSelectedAnswer, setIndexQuestion, indexQuestion, questions } =
     useTriviaContext();
@@ -69,7 +70,10 @@ const AnswerItem: React.FC<props> = ({
   };
 
   useEffect(() => {
-    (async () => (answerHashRef.current = await generateHash(answer)))();
+    (async () => {
+      answerHashRef.current = await generateHash(answer);
+      setLoading(false);
+    })();
   }, []);
 
   useEffect(() => {
@@ -78,6 +82,10 @@ const AnswerItem: React.FC<props> = ({
       isCorrectAnswer && setIconProps({ name: "check" });
     }
   }, [isTimeOut]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <TouchableHighlight
