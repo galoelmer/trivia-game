@@ -1,6 +1,1 @@
-// import React from "react";
-import LanguageSelector from "./languageSelectorView";
-
-export default function LanguageSelectorContainer() {
-  return <LanguageSelector />;
-}
+export { default } from "./language-selector";

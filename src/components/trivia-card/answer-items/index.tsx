@@ -38,7 +38,6 @@ const AnswerItem: React.FC<props> = ({
 
   const answerHashRef = useRef<string | null>(null);
   const isCorrectAnswer = correctAnswer === answerHashRef.current;
-  console.log("🚀 ~ file: index.tsx:41 ~ isCorrectAnswer:", isCorrectAnswer);
 
   const { setSelectedAnswer, setIndexQuestion, indexQuestion, questions } =
     useTriviaContext();
