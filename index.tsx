@@ -9,7 +9,7 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
-import App from "./src/app";
+import App from "./src/App";
 
 const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (graphQLErrors)

@@ -12,6 +12,7 @@ module.exports = function (api) {
             services: "./src/services",
             generated: "./src/generated",
             utils: "./src/utils",
+            hooks: "./src/hooks",
           },
         },
       ],
