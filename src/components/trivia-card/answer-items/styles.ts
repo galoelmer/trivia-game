@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   answerText: {
+    fontFamily: "Nunito",
+    fontWeight: "500",
     fontSize: 24,
     letterSpacing: 1,
   },

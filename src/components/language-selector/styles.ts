@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   selectButtonText: {
-    fontFamily: "Baloo-Regular",
+    fontFamily: "Nunito",
     fontSize: 18,
     textTransform: "capitalize",
     letterSpacing: 1,
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "90%",
-    margin: 20,
+    minWidth: 320,
+    maxWidth: 500,
     backgroundColor: "#fff",
     borderRadius: 20,
     padding: 35,
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   modalHeaderText: {
-    fontFamily: "Baloo-Bold",
+    fontFamily: "Nunito-Bold",
+    fontWeight: "bold",
     fontSize: 24,
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -52,7 +54,8 @@ const styles = StyleSheet.create({
   items: {
     width: "75%",
     margin: 10,
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     borderRadius: 10,
     borderColor: "#000",
     borderWidth: 1,
@@ -64,7 +67,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   itemText: {
-    fontFamily: "Baloo-Medium",
+    fontFamily: "Nunito",
+    fontWeight: "bold",
     fontSize: 18,
     letterSpacing: 1,
     textAlign: "center",
@@ -90,7 +94,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalButtonText: {
-    fontFamily: "Baloo-Bold",
+    fontFamily: "Nunito-Bold",
+    fontWeight: "bold",
     fontSize: 22,
     textTransform: "uppercase",
     letterSpacing: 1,

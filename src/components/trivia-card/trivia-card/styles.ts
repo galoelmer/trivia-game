@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
   questionText: {
     textAlign: "center",
     backgroundColor: "whitesmoke",
+    fontFamily: "Nunito-Bold",
     fontWeight: "bold",
     fontSize: Platform.OS === "web" ? 28 : 22,
     letterSpacing: 1,
     lineHeight: 30,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
   },
   answersContainer: {
     flex: 1,
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   answersList: {
-    flex: Platform.OS === "web" ? 2 : 1,
+    flex: 1,
     flexDirection: "column",
   },
   answerItem: {
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
   timer: {
     textAlign: "center",
     color: "#fff",
+    fontFamily: "Nunito-Bold",
     fontSize: 30,
     fontWeight: "500",
     letterSpacing: 1,

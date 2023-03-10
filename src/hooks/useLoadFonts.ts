@@ -1,10 +1,10 @@
 import { useFonts } from "expo-font";
 
+// TODO: fix fonts not working on Android
 const useLoadFonts = () => {
   const [fontsLoaded] = useFonts({
-    "Baloo-Medium": require("../../assets/fonts/Baloo2-Medium.ttf"),
-    "Baloo-Regular": require("../../assets/fonts/Baloo2-Regular.ttf"),
-    "Baloo-Bold": require("../../assets/fonts/Baloo2-Bold.ttf"),
+    Nunito: require("../../assets/fonts/Nunito-Regular.ttf"),
+    "Nunito-Bold": require("../../assets/fonts/Nunito-Bold.ttf"),
     "Baloo-ExtraBold": require("../../assets/fonts/Baloo2-ExtraBold.ttf"),
   });
 

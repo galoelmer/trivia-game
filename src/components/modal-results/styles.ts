@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTextHeader: {
-    fontFamily: "Baloo-Bold",
+    fontFamily: "Nunito-Bold",
     fontSize: 28,
     marginBottom: 5,
     letterSpacing: 2,
   },
   modalTextBody: {
+    fontFamily: "Nunito",
     textAlign: "center",
     fontWeight: "500",
     fontSize: 22,
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "#fff",
-    fontFamily: "Baloo-Bold",
+    fontFamily: "Nunito-Bold",
     fontSize: 22,
     letterSpacing: 2,
   },

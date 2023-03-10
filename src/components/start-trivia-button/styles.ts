@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   buttonText: {
+    fontFamily: "Nunito-Bold",
     color: "#fff",
     fontSize: 25,
     fontWeight: "bold",
