@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 
-// TODO: fix fonts not working on Android
+// TODO: fix fonts not working on Android or add a different font
 const useLoadFonts = () => {
   const [fontsLoaded] = useFonts({
     Nunito: require("../../assets/fonts/Nunito-Regular.ttf"),

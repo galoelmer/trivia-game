@@ -1,3 +1,4 @@
+// TODO: investigate ui shaking when modal is opened on Web
 import React from "react";
 import { View, Modal } from "react-native";
 
