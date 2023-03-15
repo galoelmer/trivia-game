@@ -11,6 +11,10 @@ import { onError } from "@apollo/client/link/error";
 
 import App from "./src/App";
 
+// TODO: Start adding Tests
+// https://github.com/callstack/react-native-testing-library or
+// https://testing-library.com/docs/react-native-testing-library/intro
+
 const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>

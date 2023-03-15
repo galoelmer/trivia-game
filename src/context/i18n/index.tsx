@@ -6,6 +6,11 @@ import React, {
   useMemo,
   useState,
 } from "react";
+// TODO: use a different library for localization i18next or react-intl
+// https://github.com/i18next/react-i18next
+
+// TODO: implement react native async storage to save the language code and locale
+// https://github.com/react-native-async-storage/async-storage
 import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
 
