@@ -21,18 +21,16 @@ const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const CONTENTFUL_ACCESS_TOKEN =
-  Constants?.manifest?.extra?.contentfulAccessToken;
-const CONTENTFUL_SPACE_ID = Constants?.manifest?.extra?.contentfulSpaceId;
+const HASURA_KEY = Constants?.manifest?.extra?.hasuraKey || "";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
     errorLink,
     new HttpLink({
-      uri: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`,
+      uri: `https://square-lab-58.hasura.app/v1/graphql`,
       credentials: "same-origin",
       headers: {
-        Authorization: `Bearer ${CONTENTFUL_ACCESS_TOKEN}`,
+        "x-hasura-admin-secret": `${HASURA_KEY}`,
       },
     }),
   ]),

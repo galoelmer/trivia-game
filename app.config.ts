@@ -30,8 +30,7 @@ export default {
       favicon: "./assets/favicon.png",
     },
     extra: {
-      contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-      contentfulSpaceId: process.env.CONTENTFUL_SPACE_ID,
+      hasuraKey: process.env.HASURA_KEY,
     },
   },
 };

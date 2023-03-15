@@ -7,11 +7,7 @@ export interface IGetTriviaProps {
 }
 
 export const getTriviaData = ({ locale = "en-US" }: IGetTriviaProps) => {
-  const { data, loading } = useGetTriviaDataQuery({
-    variables: { locale },
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-first",
-  });
+  const { data, loading } = useGetTriviaDataQuery({ variables: { locale } });
 
   const items = data?.triviaDataCollection?.items || [];
 
