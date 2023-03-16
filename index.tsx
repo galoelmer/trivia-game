@@ -15,6 +15,8 @@ import App from "./src/App";
 // https://github.com/callstack/react-native-testing-library or
 // https://testing-library.com/docs/react-native-testing-library/intro
 
+// TODO: Add Storage plugin for Flipper
+
 const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>

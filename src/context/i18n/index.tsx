@@ -9,12 +9,11 @@ import React, {
 // TODO: use a different library for localization i18next or react-intl
 // https://github.com/i18next/react-i18next
 
-// TODO: implement react native async storage to save the language code and locale
-// https://github.com/react-native-async-storage/async-storage
 import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
 
 import { en, es } from "./supportedLanguages";
+import useAsyncStorage from "hooks/useAsyncStorage";
 
 const supportedLanguages = Object.assign({}, en, es);
 export type TranslationKeys = keyof typeof supportedLanguages;
@@ -44,6 +43,7 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
 }) => {
   const [languageCode, setLanguageCode] = useState<LanguageCodeType>("en");
   const [locale, setLocale] = useState<localeType>("en-US");
+  const [storageValue, setStorageValue] = useAsyncStorage("@language");
 
   const i18n = new I18n({ en, es });
   i18n.locale = languageCode;
@@ -58,8 +58,17 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     const code = Localization.getLocales()[0].languageCode as LanguageCodeType;
-    setLanguageCode(code);
+    setLanguageCode(storageValue?.code ?? code);
   }, []);
+
+  useEffect(() => {
+    setStorageValue({ code: languageCode, locale });
+  }, [languageCode, locale]);
+
+  useEffect(() => {
+    setLanguageCode(storageValue?.code ?? "en");
+    setLocale(storageValue?.locale ?? "en-US");
+  }, [storageValue]);
 
   return (
     <TranslateContext.Provider value={value}>
