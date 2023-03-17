@@ -9,19 +9,17 @@ import React, {
 // TODO: use a different library for localization i18next or react-intl
 // https://github.com/i18next/react-i18next
 
-import * as Localization from "expo-localization";
+import { getLocales } from "expo-localization";
 import { I18n } from "i18n-js";
 
-import { en, es } from "./supportedLanguages";
+import translations from "./translations";
 import useAsyncStorage from "hooks/useAsyncStorage";
 
-const supportedLanguages = Object.assign({}, en, es);
-export type TranslationKeys = keyof typeof supportedLanguages;
-export type LanguageCodeType = "en" | "es";
+export type LanguageCodeType = keyof typeof translations;
 export type localeType = "en-US" | "es-US";
 
 interface ITranslateContext {
-  translate: (key: TranslationKeys) => string;
+  translate: (key: LanguageCodeType) => string;
   languageCode: LanguageCodeType;
   setLanguageCode: (languageCode: LanguageCodeType) => void;
   locale: localeType;
@@ -45,11 +43,11 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
   const [locale, setLocale] = useState<localeType>("en-US");
   const [storageValue, setStorageValue] = useAsyncStorage("@language");
 
-  const i18n = new I18n({ en, es });
+  const i18n = new I18n(translations);
   i18n.locale = languageCode;
   i18n.enableFallback = true;
 
-  const translate = (key: TranslationKeys) => i18n.t(key);
+  const translate = (key: LanguageCodeType) => i18n.t(key);
 
   const value = useMemo(
     () => ({ languageCode, setLanguageCode, locale, setLocale, translate }),
@@ -57,8 +55,8 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
   );
 
   useEffect(() => {
-    const code = Localization.getLocales()[0].languageCode as LanguageCodeType;
-    setLanguageCode(storageValue?.code ?? code);
+    const { languageCode } = getLocales()[0];
+    setLanguageCode(storageValue?.code ?? languageCode);
   }, []);
 
   useEffect(() => {

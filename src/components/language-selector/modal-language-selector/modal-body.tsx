@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useTranslate, TranslationKeys } from "context/i18n";
+import { useTranslate, LanguageCodeType } from "context/i18n";
 import styles from "../styles";
 import languagesData from "../language-data";
 
@@ -37,7 +37,7 @@ const ModalBody = ({
                 selectedLanguage === item.name && styles.itemTextSelected,
               ]}
             >
-              {translate(item.name.toLowerCase() as TranslationKeys)}
+              {translate(item.name.toLowerCase() as LanguageCodeType)}
             </Text>
             {selectedLanguage === item.name && (
               <FontAwesome
