@@ -16,10 +16,12 @@ import translations from "./translations";
 import useAsyncStorage from "hooks/useAsyncStorage";
 
 export type LanguageCodeType = keyof typeof translations;
+export type TranslationKeys<Key extends LanguageCodeType> =
+  keyof typeof translations[Key];
 export type localeType = "en-US" | "es-US";
 
 interface ITranslateContext {
-  translate: (key: LanguageCodeType) => string;
+  translate: (key: TranslationKeys<LanguageCodeType>) => string;
   languageCode: LanguageCodeType;
   setLanguageCode: (languageCode: LanguageCodeType) => void;
   locale: localeType;
@@ -47,7 +49,7 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
   i18n.locale = languageCode;
   i18n.enableFallback = true;
 
-  const translate = (key: LanguageCodeType) => i18n.t(key);
+  const translate = (key: TranslationKeys<LanguageCodeType>) => i18n.t(key);
 
   const value = useMemo(
     () => ({ languageCode, setLanguageCode, locale, setLocale, translate }),

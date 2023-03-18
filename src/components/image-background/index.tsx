@@ -10,7 +10,7 @@ const isWeb = Platform.OS == "web";
 const mobileBackgroundImage = require(`../../../assets/background-mobile.jpg`);
 const desktopBackgroundImage = require(`../../../assets/background-desktop.jpg`);
 
-export default function ({ children }: ImageBackgroundProps) {
+export default function ({ children }: Partial<ImageBackgroundProps>) {
   return (
     <View style={styles.backgroundContainer}>
       <ImageBackground

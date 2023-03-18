@@ -21,10 +21,6 @@ const getData = async (key: string) => {
 // TODO: add trivia data to async storage
 const useAsyncStorage = (key: string, val?: any) => {
   const [value, setValue] = useState(val);
-  console.log(
-    "🚀 ~ file: useAsyncStorage.ts:24 ~ useAsyncStorage ~ value:",
-    value
-  );
 
   useEffect(() => {
     if (value) {
