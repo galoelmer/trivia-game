@@ -24,6 +24,10 @@ const initialState = {
   setSelectedAnswer: () => {},
   setResults: () => {},
   results: { correctAnswers: 0, wrongAnswers: 0 },
+  isCountdownOver: false,
+  setIsCountdownOver: () => {},
+  message: null,
+  setMessage: () => {},
 };
 
 export const TriviaContext = createContext<ITriviaContext>(initialState);
@@ -32,8 +36,19 @@ export const useTriviaContext = () => useContext(TriviaContext);
 export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const isCountdownOver = useMemo(
+    () => state.isCountdownOver,
+    [state.isCountdownOver]
+  );
+  const setIsCountdownOver = (isCountdownOver: boolean) =>
+    dispatch({
+      type: "SET_IS_COUNTDOWN_OVER",
+      payload: isCountdownOver,
+    });
+
   const questions = useMemo(() => state.questions, [state.questions]);
   const results = useMemo(() => state.results, [state.results]);
+  const message = useMemo(() => state.message, [state.message]);
   const indexQuestion = useMemo(
     () => state.indexQuestion,
     [state.indexQuestion]
@@ -78,6 +93,9 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const setResults = (results: IAnswersResult) =>
     dispatch({ type: "SET_RESULTS", payload: results });
 
+  const setMessage = (message: string | null) =>
+    dispatch({ type: "SET_MESSAGE", payload: message });
+
   // Update score results after each question is answered
   useEffect(() => {
     if (selectedAnswer === null) return;
@@ -120,6 +138,10 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
       setSelectedAnswer,
       results,
       setResults,
+      isCountdownOver,
+      setIsCountdownOver,
+      message,
+      setMessage,
     }),
     [
       questions,
@@ -134,6 +156,10 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
       setSelectedAnswer,
       results,
       setResults,
+      isCountdownOver,
+      setIsCountdownOver,
+      message,
+      setMessage,
     ]
   );
 

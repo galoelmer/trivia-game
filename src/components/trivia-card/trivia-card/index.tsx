@@ -1,42 +1,32 @@
+import React, { useEffect } from "react";
 import { Text, View, Image } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
 import * as Animatable from "react-native-animatable";
 
 import LoaderAnimation from "components/loader-animation";
 import AnswerItem from "../answer-items";
+import TriviaFooter from "../trivia-footer";
 
 import { useTriviaContext } from "context/trivia";
 import { useTranslate } from "context/i18n";
-import { useCountdown } from "../useCountdown";
 
-import { DEFAULT_COUNTDOWN } from "../constants";
 import { getTriviaData } from "services/api";
 
 import styles from "./styles";
 
 const TriviaCard: React.FC = () => {
-  const [message, setMessage] = useState<string | null>(null);
-  const { countdown, setCountdown, resetCountdown } = useCountdown({
-    startCountAt: DEFAULT_COUNTDOWN,
-  });
-
-  const { translate, locale } = useTranslate();
+  const { locale } = useTranslate();
+  // TODO: Add error handling for API call
   const { loading, data: questions } = getTriviaData({ locale });
 
   const {
     setQuestions,
-    setDisplayTrivia,
     selectedAnswer,
     indexQuestion,
     setIndexQuestion,
     setSelectedAnswer,
+    isCountdownOver,
+    setMessage,
   } = useTriviaContext();
-
-  const isIntervalTimeOut = countdown === "0";
-
-  const handleSetMessage = useCallback((text: string | null) => {
-    setMessage(text);
-  }, []);
 
   useEffect(() => {
     if (!loading && questions.length) {
@@ -46,30 +36,20 @@ const TriviaCard: React.FC = () => {
 
   // Continue to next question if countdown is over
   useEffect(() => {
-    if (isIntervalTimeOut && selectedAnswer === null) {
-      resetCountdown();
+    if (isCountdownOver && selectedAnswer === null) {
       setSelectedAnswer("No Answer");
       setMessage(null);
       if (indexQuestion !== questions.length - 1) {
         setTimeout(() => {
-          setCountdown(DEFAULT_COUNTDOWN);
           setSelectedAnswer(null);
           setIndexQuestion(indexQuestion + 1);
         }, 4500);
       }
     }
-  }, [isIntervalTimeOut]);
+  }, [isCountdownOver]);
 
   if (loading) {
     return <LoaderAnimation />;
-  }
-
-  if (indexQuestion === questions.length) {
-    resetCountdown();
-    setMessage(null);
-    setIndexQuestion(0);
-    setDisplayTrivia(false);
-    return null;
   }
 
   return (
@@ -78,7 +58,7 @@ const TriviaCard: React.FC = () => {
         {questions[indexQuestion]?.question}
       </Text>
       <View style={styles.answersContainer}>
-        {isIntervalTimeOut && (
+        {isCountdownOver && (
           <Animatable.View style={{ flex: 1 }} animation="slideInLeft">
             <Image
               source={{ uri: questions[indexQuestion]?.image?.url ?? "" }}
@@ -89,28 +69,19 @@ const TriviaCard: React.FC = () => {
         )}
         <Animatable.View
           style={styles.answersList}
-          animation={isIntervalTimeOut ? "slideInLeft" : "lightSpeedIn"}
+          animation={isCountdownOver ? "slideInLeft" : "lightSpeedIn"}
         >
           {questions[indexQuestion]?.answersList?.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
                 answer={answer ?? ""}
                 correctAnswer={questions[indexQuestion]?.correctAnswer ?? ""}
-                isTimeOut={isIntervalTimeOut}
-                resetCountdown={resetCountdown}
-                setMessage={handleSetMessage}
-                setCountdown={setCountdown}
               />
             </View>
           ))}
         </Animatable.View>
       </View>
-      <Text style={styles.timer}>
-        {message ??
-          (countdown === "0"
-            ? translate("timeIsUp")
-            : `${translate("timeLeft")}: ${countdown}s`)}
-      </Text>
+      <TriviaFooter />
     </View>
   );
 };

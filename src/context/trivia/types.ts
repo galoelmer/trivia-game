@@ -22,6 +22,10 @@ export interface ITriviaContext {
   selectedAnswer: string | null;
   setSelectedAnswer: (selectedAnswer: string | null) => void;
   setResults: (results: IAnswersResult) => void;
+  isCountdownOver: boolean;
+  setIsCountdownOver: (isCountdownOver: boolean) => void;
+  message: string | null;
+  setMessage: (message: string | null) => void;
 }
 
 export interface ITriviaReducer {
@@ -35,4 +39,6 @@ export type ITriviaActions =
   | { type: "SET_DISPLAY_TRIVIA"; payload: boolean }
   | { type: "SET_DISPLAY_RESULTS"; payload: boolean }
   | { type: "SET_SELECTED_ANSWER"; payload: string | null }
-  | { type: "SET_RESULTS"; payload: IAnswersResult };
+  | { type: "SET_RESULTS"; payload: IAnswersResult }
+  | { type: "SET_IS_COUNTDOWN_OVER"; payload: boolean }
+  | { type: "SET_MESSAGE"; payload: string | null };

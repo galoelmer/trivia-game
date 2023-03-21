@@ -15,7 +15,6 @@ export const useCountdown = ({ startCountAt = 0 }: props) => {
   };
 
   const resetCountdown = useCallback(() => {
-    setCountdown(0);
     clearIntervalId();
   }, []);
 

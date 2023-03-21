@@ -1,9 +1,9 @@
 import React from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 
-import Modal from "components/modal-results";
+import ModalResults from "components/modal-results";
 import Header from "components/app-header";
-import Button from "components/start-trivia-button";
+import StartButton from "components/start-trivia-button";
 import TriviaCard from "components/trivia-card";
 import ImageBackground from "components/image-background";
 import LanguageSelector from "components/language-selector";
@@ -19,12 +19,12 @@ const Layout = () => {
         <Header />
         {!displayTrivia && !displayResults && (
           <>
-            <Button />
+            <StartButton />
             <LanguageSelector />
           </>
         )}
         {displayTrivia && <TriviaCard />}
-        {displayResults && <Modal />}
+        {displayResults && <ModalResults />}
       </ImageBackground>
       <StatusBar barStyle="light-content" />
     </View>

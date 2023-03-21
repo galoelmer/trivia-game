@@ -37,6 +37,16 @@ export const reducer: ITriviaReducer = (state, action) => {
         ...state,
         results: action.payload,
       };
+    case "SET_IS_COUNTDOWN_OVER":
+      return {
+        ...state,
+        isCountdownOver: action.payload,
+      };
+    case "SET_MESSAGE":
+      return {
+        ...state,
+        message: action.payload,
+      };
     default:
       throw new Error("Unknown action type");
   }
