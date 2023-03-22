@@ -1,4 +1,7 @@
-import { useGetTriviaDataQuery } from "generated/graphql";
+import {
+  useGetTriviaDataQuery,
+  useGetBackgroundImageUrlQuery,
+} from "generated/graphql";
 
 import { localeType } from "context/i18n";
 
@@ -13,6 +16,19 @@ export const getTriviaData = ({ locale = "en-US" }: IGetTriviaProps) => {
 
   return {
     data: items,
+    loading,
+  };
+};
+
+export const getBackgroundImageUrl = (id: string) => {
+  const { data, loading } = useGetBackgroundImageUrlQuery({
+    variables: { id },
+  });
+
+  const url = data?.asset?.url || "";
+
+  return {
+    url,
     loading,
   };
 };

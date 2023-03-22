@@ -10,3 +10,9 @@ query getTriviaData($locale: String!) {
     }
   }
 }
+
+query getBackgroundImageUrl($id: String!) {
+  asset(id: $id) {
+    url
+  }
+}

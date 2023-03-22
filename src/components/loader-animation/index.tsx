@@ -1,6 +1,10 @@
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, ActivityIndicatorProps } from "react-native";
 
-export default () => (
+interface Props {
+  style?: ActivityIndicatorProps;
+}
+
+export default ({ style }: Props) => (
   <View
     style={{
       position: "absolute",
@@ -9,6 +13,6 @@ export default () => (
       justifyContent: "center",
     }}
   >
-    <ActivityIndicator size="large" color="#07151E" />
+    <ActivityIndicator size="large" color="#07151E" {...style} />
   </View>
 );

@@ -1,21 +1,27 @@
 import {
   StyleSheet,
   View,
-  Platform,
   ImageBackground,
   ImageBackgroundProps,
 } from "react-native";
 
-const isWeb = Platform.OS == "web";
-const mobileBackgroundImage = require(`../../../assets/background-mobile.jpg`);
-const desktopBackgroundImage = require(`../../../assets/background-desktop.jpg`);
+import LoadingAnimation from "components/loader-animation";
+
+import { getBackgroundImageUrl } from "services/api";
+import { backgroundId } from "./constants";
 
 export default function ({ children }: Partial<ImageBackgroundProps>) {
+  const { loading, url } = getBackgroundImageUrl(backgroundId);
+
+  if (loading) {
+    return <LoadingAnimation style={{ color: "#fff" }} />;
+  }
+
   return (
     <View style={styles.backgroundContainer}>
       <ImageBackground
         resizeMode="cover"
-        source={isWeb ? desktopBackgroundImage : mobileBackgroundImage}
+        source={{ uri: url }}
         style={styles.backgroundImage}
       >
         <View style={styles.childrenContainer}>{children}</View>
