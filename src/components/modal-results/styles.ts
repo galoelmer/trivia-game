@@ -1,4 +1,5 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
+import { isAndroid } from "utils/checkCurrentOS";
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     borderWidth: 6,
-    borderStyle: Platform.OS === "android" ? "solid" : "dashed",
+    borderStyle: isAndroid ? "solid" : "dashed",
     borderColor: "rgba(27, 145, 192, 0.9)",
     padding: 35,
     alignItems: "center",

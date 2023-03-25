@@ -1,4 +1,5 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
+import { isWeb } from "utils/checkCurrentOS";
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     overflow: "hidden",
-    ...(Platform.OS === "web" && { minWidth: "375px", maxWidth: "650px" }),
+    ...(isWeb && { minWidth: "375px", maxWidth: "650px" }),
     maxHeight: 480,
     width: "90%",
     marginHorizontal: 30,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: "whitesmoke",
     fontFamily: "Nunito-Bold",
     fontWeight: "bold",
-    fontSize: Platform.OS === "web" ? 28 : 22,
+    fontSize: isWeb ? 28 : 22,
     letterSpacing: 1,
     lineHeight: 30,
     paddingHorizontal: 10,
