@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Ztext from "react-ztext";
 import { View } from "react-native";
 
-import { useTranslate } from "../../context/i18n";
+import useTranslation from "hooks/useTranslation";
 
 import styles from "./styles.web";
 
@@ -46,7 +46,7 @@ const HeaderWithShadow = memo(({ text }: { text: string }) => {
 });
 
 const Header: React.FC = () => {
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   return <HeaderWithShadow text={translate("generalKnowledgeTrivia")} />;
 };

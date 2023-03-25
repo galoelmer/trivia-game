@@ -2,14 +2,14 @@ import { View, Text } from "react-native";
 import React, { useEffect, useCallback } from "react";
 
 import { useTriviaContext } from "context/trivia";
-import { useTranslate } from "context/i18n";
 import { useCountdown } from "../useCountdown";
+import useTranslation from "hooks/useTranslation";
 
 import { DEFAULT_COUNTDOWN } from "../constants";
 import styles from "./styles";
 
 const TriviaFooter = () => {
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
   const { setIsCountdownOver, message, selectedAnswer } = useTriviaContext();
   const { countdown, setCountdown, resetCountdown } = useCountdown({
     startCountAt: DEFAULT_COUNTDOWN,
@@ -43,7 +43,7 @@ const TriviaFooter = () => {
         {message ??
           (countdown === "0"
             ? translate("timeIsUp")
-            : `${translate("timeLeft")}: ${countdown}s`)}
+            : translate("timeLeft", { countdown }))}
       </Text>
     </View>
   );

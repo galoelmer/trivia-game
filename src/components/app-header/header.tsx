@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
 
-import { useTranslate } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 
 import styles from "./styles";
 
@@ -14,7 +14,7 @@ enum Style {
 type ITextStyleIndex = { textStyleIndex: number };
 
 const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   const shadowStyle = {
     [`${Style.text1}`]: styles.text1,

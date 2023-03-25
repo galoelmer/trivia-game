@@ -2,14 +2,14 @@ import { Text, View, Modal as RNModal, Pressable } from "react-native";
 import React from "react";
 
 import { useTriviaContext } from "context/trivia";
-import { useTranslate } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 
 import styles from "./styles";
 
 const Modal = () => {
   const { displayResults, setDisplayResults, results, setResults } =
     useTriviaContext();
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   const handleButtonPress = () => {
     setDisplayResults(false);
@@ -30,8 +30,8 @@ const Modal = () => {
                 {translate("finalScore")}
               </Text>
               <Text style={[styles.modalTextBody]}>
-                {translate("correct")}: {results.correctAnswers} {"\n"}
-                {translate("incorrect")}: {results.wrongAnswers}
+                {translate("correct", { count: results.correctAnswers })} {"\n"}
+                {translate("incorrect", { count: results.wrongAnswers })}
               </Text>
             </View>
             <Pressable style={styles.button} onPress={handleButtonPress}>

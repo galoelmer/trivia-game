@@ -4,14 +4,16 @@ import { Text, Pressable } from "react-native";
 import ModalLanguageSelector from "./modal-language-selector";
 
 import useAsyncStorage from "hooks/useAsyncStorage";
-import { useTranslate } from "context/i18n";
+import { useTranslateContext } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 import languagesData from "./language-data";
 import styles from "./styles";
 
 const LanguageSelector = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
-  const { languageCode, translate } = useTranslate();
+  const { languageCode } = useTranslateContext();
+  const { translate } = useTranslation();
   const [storageValue] = useAsyncStorage("@language");
 
   useEffect(() => {

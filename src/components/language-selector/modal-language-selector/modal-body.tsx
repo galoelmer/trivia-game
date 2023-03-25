@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-import { useTranslate, LanguageCodeType } from "context/i18n";
+import { TranslationKeys, LanguageCodeType } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 import styles from "../styles";
 import languagesData from "../language-data";
 
@@ -15,7 +16,7 @@ const ModalBody = ({
   selectedLanguage,
   setSelectedLanguage,
 }: ModalBodyProps) => {
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   return (
     <FlatList
@@ -37,7 +38,9 @@ const ModalBody = ({
                 selectedLanguage === item.name && styles.itemTextSelected,
               ]}
             >
-              {translate(item.name.toLowerCase() as LanguageCodeType)}
+              {translate(
+                item.name.toLowerCase() as TranslationKeys<LanguageCodeType>
+              )}
             </Text>
             {selectedLanguage === item.name && (
               <FontAwesome

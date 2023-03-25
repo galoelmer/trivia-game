@@ -7,14 +7,14 @@ import AnswerItem from "../answer-items";
 import TriviaFooter from "../trivia-footer";
 
 import { useTriviaContext } from "context/trivia";
-import { useTranslate } from "context/i18n";
+import { useTranslateContext } from "context/i18n";
 
 import { getTriviaData } from "services/api";
 
 import styles from "./styles";
 
 const TriviaCard: React.FC = () => {
-  const { locale } = useTranslate();
+  const { locale } = useTranslateContext();
   // TODO: Add error handling for API call
   const { loading, data: questions } = getTriviaData({ locale });
 

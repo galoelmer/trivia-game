@@ -3,7 +3,7 @@ import { Text, TouchableHighlight } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 import { useTriviaContext } from "context/trivia";
-import { useTranslate } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 
 import { generateHash } from "utils/generateHash";
 
@@ -36,7 +36,7 @@ const AnswerItem: React.FC<props> = ({ answer, correctAnswer }) => {
     isCountdownOver,
     setMessage,
   } = useTriviaContext();
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   const setNextQuestion = () => {
     setTimeout(() => {

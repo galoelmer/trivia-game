@@ -1,7 +1,8 @@
 import { Text, Pressable } from "react-native";
 import React from "react";
 
-import { useTranslate } from "context/i18n";
+import { useTranslateContext } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 import styles from "../styles";
 import languagesData from "../language-data";
 
@@ -14,7 +15,8 @@ const ModalActionButton = ({
   selectedLanguage,
   setModalVisible,
 }: ModalActionButtonProps) => {
-  const { setLanguageCode, setLocale, translate } = useTranslate();
+  const { setLanguageCode, setLocale } = useTranslateContext();
+  const { translate } = useTranslation();
 
   const handleOnPress = () => {
     const language =

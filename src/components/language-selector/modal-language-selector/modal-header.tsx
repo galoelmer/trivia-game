@@ -1,11 +1,11 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-import { useTranslate } from "context/i18n";
+import useTranslation from "hooks/useTranslation";
 import styles from "../styles";
 
 const ModalHeader = () => {
-  const { translate } = useTranslate();
+  const { translate } = useTranslation();
 
   return (
     <View style={styles.modalHeader}>
