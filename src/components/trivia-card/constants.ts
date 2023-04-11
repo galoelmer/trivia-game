@@ -1,1 +1,4 @@
-export const DEFAULT_COUNTDOWN = 5; // TODO: Change value to 15
+const isDev = process.env.NODE_ENV === "development";
+
+export const DEFAULT_COUNTDOWN = isDev ? 5 : 15;
+export const NEXT_QUESTION_DELAY = isDev ? 2000 : 4800;

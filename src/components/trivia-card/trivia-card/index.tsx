@@ -10,6 +10,7 @@ import { useTriviaContext } from "context/trivia";
 import { useTranslateContext } from "context/i18n";
 
 import { getTriviaData } from "services/api";
+import { NEXT_QUESTION_DELAY } from "../constants";
 
 import styles from "./styles";
 
@@ -43,7 +44,7 @@ const TriviaCard: React.FC = () => {
         setTimeout(() => {
           setSelectedAnswer(null);
           setIndexQuestion(indexQuestion + 1);
-        }, 4500);
+        }, NEXT_QUESTION_DELAY);
       }
     }
   }, [isCountdownOver]);

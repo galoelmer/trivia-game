@@ -11,6 +11,8 @@ import { reducer } from "./reducer";
 
 import { ITriviaContext, IAnswersResult, IGetTriviaQuestions } from "./types";
 
+import { NEXT_QUESTION_DELAY } from "components/trivia-card/constants";
+
 const initialState = {
   questions: [],
   setQuestions: () => {},
@@ -120,7 +122,7 @@ export const TriviaProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setIndexQuestion(0);
         setSelectedAnswer(null);
         setDisplayResults(true);
-      }, 3500);
+      }, NEXT_QUESTION_DELAY);
     }
   }, [results]);
 

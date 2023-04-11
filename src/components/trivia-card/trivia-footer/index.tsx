@@ -5,7 +5,7 @@ import { useTriviaContext } from "context/trivia";
 import { useCountdown } from "../useCountdown";
 import useTranslation from "hooks/useTranslation";
 
-import { DEFAULT_COUNTDOWN } from "../constants";
+import { DEFAULT_COUNTDOWN, NEXT_QUESTION_DELAY } from "../constants";
 import styles from "./styles";
 
 const TriviaFooter = () => {
@@ -20,7 +20,7 @@ const TriviaFooter = () => {
     setTimeout(() => {
       setCountdown(DEFAULT_COUNTDOWN);
       setIsCountdownOver(false);
-    }, 4500);
+    }, NEXT_QUESTION_DELAY);
   }, []);
 
   useEffect(() => {

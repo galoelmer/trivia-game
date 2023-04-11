@@ -6,6 +6,7 @@ import { useTriviaContext } from "context/trivia";
 import useTranslation from "hooks/useTranslation";
 
 import { generateHash } from "utils/generateHash";
+import { NEXT_QUESTION_DELAY } from "../constants";
 
 import styles from "./styles";
 
@@ -47,7 +48,7 @@ const AnswerItem: React.FC<props> = ({ answer, correctAnswer }) => {
         setSelectedAnswer(null);
         setIndexQuestion(indexQuestion + 1);
       }
-    }, 4500);
+    }, NEXT_QUESTION_DELAY);
   };
 
   const handleOnPress = () => {
