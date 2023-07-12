@@ -17,6 +17,7 @@ import App from "./src/App";
 
 // TODO: Add Storage plugin for Flipper
 
+// TODO: add server error handler
 const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path }) =>
@@ -27,7 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const HASURA_KEY = Constants?.manifest?.extra?.hasuraKey || "";
+const HASURA_KEY = Constants?.expoConfig?.extra?.hasuraKey || "";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
