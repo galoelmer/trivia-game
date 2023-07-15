@@ -2,7 +2,7 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "trivia-game",
+    name: "Trivia",
     slug: "trivia-game",
     version: "1.0.0",
     orientation: "portrait",
@@ -25,11 +25,15 @@ export default {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#FFFFFF",
       },
+      package: "com.galoelmer.triviagame",
     },
     web: {
       favicon: "./assets/favicon.png",
     },
     extra: {
+      eas: {
+        projectId: "a67250b1-6266-41de-b09a-2035f591b1d5",
+      },
       hasuraKey: process.env.HASURA_KEY,
     },
   },
