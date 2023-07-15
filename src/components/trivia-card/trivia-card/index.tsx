@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Text, View, Image } from "react-native";
 import * as Animatable from "react-native-animatable";
+import _shuffle from "lodash.shuffle";
 
 import LoaderAnimation from "components/loader-animation";
 import AnswerItem from "../answer-items";
@@ -28,6 +29,11 @@ const TriviaCard: React.FC = () => {
     isCountdownOver,
     setMessage,
   } = useTriviaContext();
+
+  const answersList = useMemo(
+    () => _shuffle(questions[indexQuestion]?.answersList),
+    [questions[indexQuestion]?.answersList]
+  );
 
   useEffect(() => {
     if (!loading && questions.length) {
@@ -64,7 +70,7 @@ const TriviaCard: React.FC = () => {
             <Image
               source={{ uri: questions[indexQuestion]?.image?.url ?? "" }}
               resizeMode="cover"
-              style={styles.answerImage}
+              style={{ flex: 1 }}
             />
           </Animatable.View>
         )}
@@ -72,7 +78,7 @@ const TriviaCard: React.FC = () => {
           style={styles.answersList}
           animation={isCountdownOver ? "slideInLeft" : "lightSpeedIn"}
         >
-          {questions[indexQuestion]?.answersList?.map((answer) => (
+          {answersList.map((answer) => (
             <View key={answer} style={styles.answerItem}>
               <AnswerItem
                 answer={answer ?? ""}

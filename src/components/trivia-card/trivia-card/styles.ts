@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     overflow: "hidden",
-    ...(isWeb && { minWidth: "375px", maxWidth: "650px" }),
     maxHeight: 480,
     width: "90%",
     marginHorizontal: 30,
+    ...(isWeb && { minWidth: 375, maxWidth: 650 }),
   },
   questionText: {
     textAlign: "center",
@@ -28,9 +28,6 @@ const styles = StyleSheet.create({
   answersContainer: {
     flex: 1,
     flexDirection: "row",
-  },
-  answerImage: {
-    flex: 1,
   },
   answersList: {
     flex: 1,
