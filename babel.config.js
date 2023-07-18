@@ -13,6 +13,7 @@ module.exports = function (api) {
             generated: "./src/generated",
             utils: "./src/utils",
             hooks: "./src/hooks",
+            assets: "./assets",
           },
         },
       ],

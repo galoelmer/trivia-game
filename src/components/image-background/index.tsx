@@ -3,25 +3,20 @@ import {
   View,
   ImageBackground,
   ImageBackgroundProps,
+  Platform,
 } from "react-native";
 
-import LoadingAnimation from "components/loader-animation";
-
-import { getBackgroundImageUrl } from "services/api";
-import { backgroundId } from "./constants";
+const background = Platform.select({
+  web: require("assets/images/background-desktop.jpg"),
+  default: require("assets/images/background-mobile.jpg"),
+});
 
 export default function ({ children }: Partial<ImageBackgroundProps>) {
-  const { loading, url } = getBackgroundImageUrl(backgroundId);
-
-  if (loading) {
-    return <LoadingAnimation style={{ color: "#fff" }} />;
-  }
-
   return (
     <View style={styles.backgroundContainer}>
       <ImageBackground
         resizeMode="cover"
-        source={{ uri: url }}
+        source={background}
         style={styles.backgroundImage}
       >
         <View style={styles.childrenContainer}>{children}</View>
