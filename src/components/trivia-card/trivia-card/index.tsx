@@ -18,7 +18,7 @@ import styles from "./styles";
 const TriviaCard: React.FC = () => {
   const { locale } = useTranslateContext();
   // TODO: Add error handling for API call
-  const { loading, data: questions } = getTriviaData({ locale });
+  const { loading, data } = getTriviaData({ locale });
 
   const {
     setQuestions,
@@ -28,6 +28,7 @@ const TriviaCard: React.FC = () => {
     setSelectedAnswer,
     isCountdownOver,
     setMessage,
+    questions,
   } = useTriviaContext();
 
   const answersList = useMemo(
@@ -36,10 +37,10 @@ const TriviaCard: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!loading && questions.length) {
-      setQuestions(questions);
+    if (!loading && data.length) {
+      setQuestions(_shuffle(data));
     }
-  }, [loading, questions]);
+  }, [loading, data]);
 
   // Continue to next question if countdown is over
   useEffect(() => {
