@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 24,
     letterSpacing: 1,
+    textAlign: "center",
   },
   correctAnswer: {
     color: "green",

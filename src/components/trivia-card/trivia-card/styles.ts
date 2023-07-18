@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     maxHeight: 480,
-    width: "90%",
+    width: "95%",
     marginHorizontal: 30,
     ...(isWeb && { minWidth: 375, maxWidth: 650 }),
   },
