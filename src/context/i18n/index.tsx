@@ -15,7 +15,7 @@ import useAsyncStorage from "hooks/useAsyncStorage";
 
 export type LanguageCodeType = keyof typeof translations;
 export type TranslationKeys<Key extends LanguageCodeType> =
-  keyof typeof translations[Key]["translation"];
+  keyof (typeof translations)[Key]["translation"];
 export type localeType = "en-US" | "es-US";
 
 interface ITranslateContext {
@@ -23,6 +23,7 @@ interface ITranslateContext {
   setLanguageCode: (languageCode: LanguageCodeType) => void;
   locale: localeType;
   setLocale: (locale: localeType) => void;
+  isI18Initialized?: boolean;
 }
 
 export const TranslateContext = createContext<ITranslateContext>({
@@ -30,6 +31,7 @@ export const TranslateContext = createContext<ITranslateContext>({
   setLanguageCode: () => {},
   locale: "en-US",
   setLocale: () => {},
+  isI18Initialized: undefined,
 });
 
 export const useTranslateContext = () => useContext(TranslateContext);
@@ -54,9 +56,20 @@ export const TranslateProvider: React.FC<PropsWithChildren> = ({
     });
   }, []);
 
+  const isI18Initialized = useMemo(
+    () => i18n.isInitialized,
+    [i18n.isInitialized]
+  );
+
   const value = useMemo(
-    () => ({ languageCode, setLanguageCode, locale, setLocale }),
-    [languageCode, setLanguageCode, locale, setLocale]
+    () => ({
+      languageCode,
+      setLanguageCode,
+      locale,
+      setLocale,
+      isI18Initialized,
+    }),
+    [languageCode, setLanguageCode, locale, setLocale, isI18Initialized]
   );
 
   useEffect(() => {

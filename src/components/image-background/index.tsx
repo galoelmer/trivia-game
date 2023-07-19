@@ -6,12 +6,16 @@ import {
   Platform,
 } from "react-native";
 
+import { useTranslateContext } from "context/i18n";
+
 const background = Platform.select({
   web: require("assets/images/background-desktop.jpg"),
   default: require("assets/images/background-mobile.jpg"),
 });
 
 export default function ({ children }: Partial<ImageBackgroundProps>) {
+  const { isI18Initialized } = useTranslateContext();
+
   return (
     <View style={styles.backgroundContainer}>
       <ImageBackground
@@ -19,7 +23,9 @@ export default function ({ children }: Partial<ImageBackgroundProps>) {
         source={background}
         style={styles.backgroundImage}
       >
-        <View style={styles.childrenContainer}>{children}</View>
+        <View style={styles.childrenContainer}>
+          {isI18Initialized && children}
+        </View>
       </ImageBackground>
     </View>
   );
