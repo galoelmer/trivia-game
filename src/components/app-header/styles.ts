@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  textShadowContainer: {
+    width: "90%",
+    marginHorizontal: "5%",
+  },
   text: {
     fontSize: 40,
     fontFamily: "Baloo-ExtraBold",

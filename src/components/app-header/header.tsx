@@ -32,7 +32,7 @@ const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
 const Header: React.FC = () => {
   return (
     <SafeAreaView>
-      <View>
+      <View style={styles.textShadowContainer}>
         {Array(3)
           .fill(true)
           .map((_, i) => (
