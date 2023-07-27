@@ -2,16 +2,25 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   selectButton: {
-    marginTop: 25,
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: 50,
+    margin: 12,
+    marginLeft: "auto",
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    backgroundColor: "rgba(48, 195, 249, 0.45)",
   },
   selectButtonText: {
+    color: "#fff",
     fontFamily: "Nunito",
-    fontSize: 18,
+    fontSize: 16,
     textTransform: "capitalize",
     letterSpacing: 1,
-    textAlign: "center",
-    color: "#fff",
-    textDecorationLine: "underline",
+    marginLeft: 8,
+  },
+  hideModal: {
+    display: "none",
   },
   centeredView: {
     flex: 1,

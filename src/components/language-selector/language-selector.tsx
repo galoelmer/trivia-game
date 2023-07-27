@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, Pressable } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import ModalLanguageSelector from "./modal-language-selector";
 
@@ -38,9 +39,8 @@ const LanguageSelector = () => {
         style={styles.selectButton}
         onPress={() => setModalVisible(!modalVisible)}
       >
-        <Text style={styles.selectButtonText}>
-          {translate("selectLanguage")}
-        </Text>
+        <FontAwesome name="language" size={20} color="#ffffff" />
+        <Text style={styles.selectButtonText}>{translate("language")}</Text>
       </Pressable>
       <ModalLanguageSelector
         modalVisible={modalVisible}

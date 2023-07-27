@@ -22,7 +22,7 @@ const ModalView = ({
   setSelectedLanguage,
 }: ModalViewProps) => {
   return (
-    <View style={styles.centeredView}>
+    <View style={[styles.centeredView, !modalVisible && styles.hideModal]}>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>

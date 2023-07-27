@@ -16,13 +16,9 @@ const Layout = () => {
   return (
     <View style={styles.container}>
       <ImageBackground>
+        <LanguageSelector />
         <Header />
-        {!displayTrivia && !displayResults && (
-          <>
-            <StartButton />
-            <LanguageSelector />
-          </>
-        )}
+        {!displayTrivia && !displayResults && <StartButton />}
         {displayTrivia && <TriviaCard />}
         {displayResults && <ModalResults />}
       </ImageBackground>
