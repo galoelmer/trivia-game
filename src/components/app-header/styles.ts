@@ -2,41 +2,53 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   textShadowContainer: {
-    width: "90%",
-    marginHorizontal: "5%",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
   },
   text: {
-    fontSize: 40,
-    fontFamily: "Baloo-ExtraBold",
-    letterSpacing: 8,
-    lineHeight: 46,
+    fontSize: 65,
+    fontFamily: "Pepsi",
     textAlign: "center",
     textTransform: "uppercase",
-    color: "white",
-    textShadowColor: "#BABABA",
+    color: "#00ffcc",
+    textShadowColor: "#3a738f",
     textShadowRadius: 1,
-    left: 0,
-    right: 0,
-    paddingTop: 20,
+    transform: [{ skewY: "-10deg" }],
+    width: "100%",
   },
   text1: {
     textShadowOffset: {
-      width: 0,
-      height: 2,
+      width: 2,
+      height: 4,
     },
   },
   text2: {
     position: "absolute",
     textShadowOffset: {
-      width: 0,
-      height: 4,
+      width: 4,
+      height: 6,
     },
   },
   text3: {
     position: "absolute",
     textShadowOffset: {
-      width: 0,
-      height: 6,
+      width: 6,
+      height: 8,
+    },
+  },
+  subtext: {
+    fontSize: 30,
+    color: "#00ffcc",
+    textAlign: "center",
+    letterSpacing: 1,
+    fontFamily: "Pepsi",
+    transform: [{ skewY: "-10deg" }],
+    textShadowColor: "#3a738f",
+    textShadowRadius: 1,
+    textShadowOffset: {
+      width: 2,
+      height: 4,
     },
   },
 });

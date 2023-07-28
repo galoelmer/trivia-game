@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 120,
+    paddingVertical: 40,
     alignItems: "center",
   },
   buttonHighlight: {
@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "rgba(36, 188, 248, 0.9)",
-    borderWidth: 8,
-    borderColor: "rgb(255, 255, 255)",
+    backgroundColor: "#24bcf8",
+    borderWidth: 4,
+    borderColor: "#ffffff",
     borderRadius: 50,
-    padding: 20,
+    padding: 10,
   },
   buttonText: {
     fontFamily: "Nunito-Bold",
     color: "#fff",
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "bold",
     letterSpacing: 4,
     textTransform: "uppercase",

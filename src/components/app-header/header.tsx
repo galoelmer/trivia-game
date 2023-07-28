@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text } from "react-native";
 
 import useTranslation from "hooks/useTranslation";
 
@@ -24,22 +24,26 @@ const TextWithShadow = ({ textStyleIndex }: ITextStyleIndex) => {
 
   return (
     <Text style={[styles.text, shadowStyle[textStyleIndex + 1]]}>
-      {translate("generalKnowledgeTrivia")}
+      {translate("trivia")}
     </Text>
   );
 };
 
 const Header: React.FC = () => {
+  const { translate } = useTranslation();
   return (
-    <SafeAreaView>
-      <View style={styles.textShadowContainer}>
+    <View style={styles.textShadowContainer}>
+      <View style={{ width: "100%" }}>
         {Array(3)
           .fill(true)
           .map((_, i) => (
             <TextWithShadow key={`text-${i}`} textStyleIndex={i} />
           ))}
       </View>
-    </SafeAreaView>
+      <View>
+        <Text style={styles.subtext}>{translate("generalKnowledge")}</Text>
+      </View>
+    </View>
   );
 };
 

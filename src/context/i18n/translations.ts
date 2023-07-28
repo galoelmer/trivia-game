@@ -1,7 +1,8 @@
 export default {
   en: {
     translation: {
-      generalKnowledgeTrivia: "General Knowledge Trivia",
+      trivia: "Trivia",
+      generalKnowledge: "General Knowledge",
       startTrivia: "Start Trivia",
       finalScore: "Final Score",
       correct: "Correct: {{count}}",
@@ -20,7 +21,8 @@ export default {
   },
   es: {
     translation: {
-      generalKnowledgeTrivia: "Trivia Cultura General",
+      trivia: "Trivia",
+      generalKnowledge: "Cultura General",
       startTrivia: "Iniciar Trivia",
       finalScore: "Resultados",
       correct: "Correcto: {{count}}",

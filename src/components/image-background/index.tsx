@@ -33,6 +33,7 @@ export default function ({ children }: Partial<ImageBackgroundProps>) {
 
 const styles = StyleSheet.create({
   backgroundContainer: {
+    display: "flex",
     flex: 1,
   },
   backgroundImage: {
