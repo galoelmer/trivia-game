@@ -4,7 +4,7 @@ import { StatusBar, StyleSheet, View } from "react-native";
 import ModalResults from "components/modal-results";
 import Header from "components/app-header";
 import StartButton from "components/start-trivia-button";
-import TriviaCard from "components/trivia-card";
+import TriviaCards from "components/trivia-cards";
 import ImageBackground from "components/image-background";
 import LanguageSelector from "components/language-selector";
 
@@ -17,9 +17,9 @@ const Layout = () => {
     <View style={styles.container}>
       <ImageBackground>
         <LanguageSelector />
-        <Header />
+        {!displayTrivia && !displayResults && <Header />}
         {!displayTrivia && !displayResults && <StartButton />}
-        {displayTrivia && <TriviaCard />}
+        {displayTrivia && <TriviaCards />}
         {displayResults && <ModalResults />}
       </ImageBackground>
       <StatusBar barStyle="light-content" />
