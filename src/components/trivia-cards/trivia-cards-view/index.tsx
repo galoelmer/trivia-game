@@ -1,38 +1,16 @@
 import React, { useEffect } from "react";
-import { Text, View, Button } from "react-native";
+import { View } from "react-native";
 
 import _shuffle from "lodash.shuffle";
 
 import LoaderAnimation from "components/loader-animation";
 import StackCards from "components/stack-cards";
+import TriviaCard from "components/trivia-card";
 
 import { useTriviaContext } from "context/trivia";
 import { useTranslateContext } from "context/i18n";
 
 import { getTriviaData } from "services/api";
-
-//TODO: Create new Trivia Card component
-// Trivia Card Mock component
-const TriviaCard = ({ question }: { question: string }) => {
-  const { indexQuestion, setIndexQuestion } = useTriviaContext();
-  return (
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-      }}
-    >
-      <Text style={{ fontSize: 30 }}>{question}</Text>
-      <Button
-        title="Next Question"
-        onPress={() => setIndexQuestion(indexQuestion + 1)}
-      />
-    </View>
-  );
-};
 
 const TriviaCards = () => {
   const { locale } = useTranslateContext();
@@ -51,7 +29,7 @@ const TriviaCards = () => {
     return <LoaderAnimation />;
   }
 
-  const cards = questions.map((item) => (
+  const cards = questions.map((item, index) => (
     <TriviaCard key={item?.question} question={item?.question ?? ""} />
   ));
 
