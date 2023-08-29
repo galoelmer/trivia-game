@@ -4,15 +4,20 @@ import { FontAwesome } from "@expo/vector-icons";
 import CountdownTimer from "../countdown-timer";
 
 import { useTriviaContext } from "context/trivia";
+import { IGetTriviaQuestions } from "context/trivia/types";
 
 import styles from "./styles";
 
 interface TriviaCardProps {
-  question: any;
+  trivia: IGetTriviaQuestions[number];
 }
 
-const TriviaCard = ({ question }: TriviaCardProps) => {
+const TriviaCard = ({ trivia }: TriviaCardProps) => {
   const { indexQuestion, questions } = useTriviaContext();
+
+  if (!trivia || !trivia.answersList) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
@@ -29,6 +34,46 @@ const TriviaCard = ({ question }: TriviaCardProps) => {
       </View>
       <View style={styles.countdownContainer}>
         <CountdownTimer max={5} />
+      </View>
+      <View style={styles.cardBody}>
+        <Text style={styles.cardQuestion}>{trivia?.question}</Text>
+        <View style={styles.cardAnswersList}>
+          {trivia?.answersList.map((answer, index) => {
+            const letter = ["A", "B", "C", "D"][index] || "";
+
+            return (
+              <View style={styles.cardAnswer}>
+                <Text
+                  style={{
+                    paddingHorizontal: 5,
+                    fontWeight: "600",
+                    fontSize: 16,
+                  }}
+                >
+                  {letter}
+                </Text>
+                <View
+                  style={{
+                    backgroundColor: "rgb(201, 201, 201)",
+                    width: 2,
+                    marginHorizontal: 15,
+                    height: "70%",
+                  }}
+                ></View>
+                <Text
+                  style={{
+                    paddingHorizontal: 5,
+                    fontWeight: "500",
+                    letterSpacing: 1.2,
+                    fontSize: 16,
+                  }}
+                >
+                  {answer}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </View>
   );

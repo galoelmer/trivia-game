@@ -29,8 +29,8 @@ const TriviaCards = () => {
     return <LoaderAnimation />;
   }
 
-  const cards = questions.map((item, index) => (
-    <TriviaCard key={item?.question} question={item?.question ?? ""} />
+  const cards = questions.map((item) => (
+    <TriviaCard key={item?.question} trivia={item} />
   ));
 
   return (
